@@ -22,6 +22,7 @@
     <string name="endTime">Select end time here</string>
     <string name="createBtn">Create</string>
     <string name="addAttendeeBtn">Add attendee</string>
+    <string name="completeBtn">Complete</string>
 
 
 </resources>

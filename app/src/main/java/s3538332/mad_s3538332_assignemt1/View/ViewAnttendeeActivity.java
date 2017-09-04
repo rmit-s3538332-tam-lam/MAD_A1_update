@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -17,7 +18,7 @@ import s3538332.mad_s3538332_assignemt1.Controller.popActListener;
 import s3538332.mad_s3538332_assignemt1.R;
 
 public class ViewAnttendeeActivity extends AppCompatActivity {
-    Button addAttendeeBtn;
+    Button addAttendeeBtn,completeBtn;
     ListView attendeeListView;
     int REQ_CODE = 1;
     Controller controller;
@@ -28,8 +29,12 @@ public class ViewAnttendeeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_anttendee);
         addAttendeeBtn = (Button) findViewById(R.id.addAttendeeBtn);
+        completeBtn = (Button) findViewById(R.id.completeBtn);
+
         attendeeListView = (ListView) findViewById(R.id.attendeeListView);
         controller = new Controller(this);
+
+        setListItemListener();
     }
 
     public void onClick(View view) {
@@ -55,6 +60,17 @@ public class ViewAnttendeeActivity extends AppCompatActivity {
 
         }
     }
+    public void setListItemListener(){
+        attendeeListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.i(controller.LOG_TAG,"Long clicked");
+                controller.removeFromTemp(i);
+                populateListView();
+                return true;
+            }
+        });
+    }
 
     public void populateListView() {
         ArrayList<String> nameOnlyTempList = controller.nameOnlyTempList();
@@ -69,5 +85,9 @@ public class ViewAnttendeeActivity extends AppCompatActivity {
         super.onPostResume();
         populateListView();
 
+    }
+
+    public void completeBtnOnClick(View view){
+        finish();
     }
 }

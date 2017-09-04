@@ -62,23 +62,25 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/dateTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:text="@string/date"
                 android:textAlignment="center"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:onClick="dateTVOnClick"
+                android:clickable="true"/>
 
             <TextView
                 android:id="@+id/textView11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="@string/startTimeLbl"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/textView15"
+                android:id="@+id/startTimeTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -94,7 +96,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/textView17"
+                android:id="@+id/endTimeTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"

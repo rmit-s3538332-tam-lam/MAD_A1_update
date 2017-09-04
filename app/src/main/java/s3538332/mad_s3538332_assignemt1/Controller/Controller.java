@@ -108,5 +108,11 @@ public class Controller {
         }
         return boo;
     }
+    public void removeFromTemp(int id){
+        if(tempAList.size()>id){
+            tempAList.remove(id);
+            Log.i(LOG_TAG,id +" is removed from TempList");
+        }
+    }
 
 }
