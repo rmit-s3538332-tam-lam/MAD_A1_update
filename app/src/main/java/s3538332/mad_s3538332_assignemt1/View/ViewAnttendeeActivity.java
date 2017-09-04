@@ -16,7 +16,7 @@ import s3538332.mad_s3538332_assignemt1.R;
 public class ViewAnttendeeActivity extends AppCompatActivity {
     Button addAttendeeBtn;
     ListView attendeeListView;
-    static int REQ_CODE = 1;
+    int REQ_CODE = 1;
     Controller controller;
     int id;
 
@@ -27,7 +27,6 @@ public class ViewAnttendeeActivity extends AppCompatActivity {
         addAttendeeBtn = (Button) findViewById(R.id.addAttendeeBtn);
         attendeeListView = (ListView) findViewById(R.id.attendeeListView);
         controller = new Controller(this);
-        addAttendeeBtn.setOnClickListener(new popActListener(this, AddAttendeeActivity.class));
     }
 
     public void onClick(View view) {
@@ -37,10 +36,11 @@ public class ViewAnttendeeActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.i(controller.LOG_TAG, "getting result");
 
         if (requestCode == REQ_CODE && resultCode == RESULT_OK && data != null) {
             id = data.getIntExtra("ID", 0);
-//            Log.i(controller.LOG_TAG, "ID " + id);
+            Log.i(controller.LOG_TAG, "ID " + id);
             Toast.makeText(this, "ID: " + id, Toast.LENGTH_SHORT).show();
         }
     }
