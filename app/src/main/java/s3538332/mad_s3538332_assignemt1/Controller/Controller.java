@@ -19,6 +19,7 @@ public class Controller {
     FriendList friendList;
     Context context;
     TempAttendeeList tempAList;
+
     public Controller(Context context) {
         friendList = FriendList.getInstance();
         this.context = context;
@@ -76,12 +77,36 @@ public class Controller {
         friend.setEmail(email);
         friend.setBirthday(birthday);
     }
-    public void addToTempList(int id){
-        if(friendList.size()>id){
+
+    public void addToTempList(int id) {
+        if (friendList.size() > id) {
             Friend friend = friendList.get(id);
             tempAList.add(friend);
-            Log.i(LOG_TAG,"Added to TempList: "+ friend.getName());
+            Log.i(LOG_TAG, "Added to TempList: " + friend.getName());
         }
+    }
+
+    public ArrayList<String> nameOnlyTempList() {
+        ArrayList<String> nameOnlyTempList = tempAList.nameOnlyList();
+        return nameOnlyTempList;
+    }
+
+    public boolean existInTempList(int id) {
+        boolean boo =false;
+        if (friendList.size() > id) {
+            Friend friend = friendList.get(id);
+            String name = friend.getName();
+            String email = friend.getEmail();
+            for (int i = 0; i < tempAList.size(); i++) {
+                Friend temp = tempAList.get(i);
+                if(name.equals(temp.getName())&& email.equals(temp.getEmail())){
+                    boo = true;
+                    return boo;
+                }
+            }
+
+        }
+        return boo;
     }
 
 }

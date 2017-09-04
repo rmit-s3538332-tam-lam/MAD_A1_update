@@ -5,9 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import s3538332.mad_s3538332_assignemt1.Controller.Controller;
 import s3538332.mad_s3538332_assignemt1.Controller.popActListener;
@@ -41,9 +44,30 @@ public class ViewAnttendeeActivity extends AppCompatActivity {
         if (requestCode == REQ_CODE && resultCode == RESULT_OK && data != null) {
             id = data.getIntExtra("ID", 0);
             Log.i(controller.LOG_TAG, "ID " + id);
-            controller.addToTempList(id);
+            if(controller.existInTempList(id)) {
+                Toast.makeText(this,  controller.getNameById(id)+" is already added", Toast.LENGTH_SHORT).show();
 
-            Toast.makeText(this, "ID: " + id, Toast.LENGTH_SHORT).show();
+            } else{
+                controller.addToTempList(id);
+                Toast.makeText(this, "Added " + controller.getNameById(id), Toast.LENGTH_SHORT).show();
+
+            }
+
         }
+    }
+
+    public void populateListView() {
+        ArrayList<String> nameOnlyTempList = controller.nameOnlyTempList();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.itemlistview,
+                nameOnlyTempList);
+        attendeeListView.setAdapter(adapter);
+
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        populateListView();
+
     }
 }
