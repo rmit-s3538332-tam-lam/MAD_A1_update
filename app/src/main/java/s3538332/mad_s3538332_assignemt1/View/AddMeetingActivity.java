@@ -12,6 +12,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.sql.Time;
 import java.util.Calendar;
@@ -30,6 +31,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     private int year, month, day;
     private int startHour, startMinutes, endHour, endMinutes;
     static int START_TIME_ID = 2, END_TIME_ID = 3;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +71,38 @@ public class AddMeetingActivity extends AppCompatActivity {
         showDialog(END_TIME_ID);
     }
 
+    public void createBtnOnClick(View view) {
+        String title = titleTF.getText().toString();
+        String location = locationTF.getText().toString();
+
+        String defaultStartText = getResources().getString(R.string.startTime);
+        String defaultEndText = getResources().getString(R.string.endTime);
+        String defaultDateText = getResources().getString(R.string.date);
+        String stText = startTimeTV.getText().toString();
+        String etText = endTimeTV.getText().toString();
+        String dText = dateTV.getText().toString();
+
+        if (title.isEmpty() || location.isEmpty()) {
+            Toast.makeText(this, "Please enter title and location", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (stText.equals(defaultStartText) || etText.equals(defaultEndText)
+                || dText.equals(defaultDateText)) {
+            Toast.makeText(this, "Please select date and time", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (controller.isTempListEmpty()) {
+            Toast.makeText(this, "Add at least one attendee", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String date = day + "/" + month + "/" + year;
+        String startTime = date + "  " + startHour + ":" + startMinutes;
+        String endTime = date + "  " + endHour + ":" + endMinutes;
+        controller.addMeeting(title,location,startTime,endTime);
+        finish();
+    }
+
     @Override
     protected Dialog onCreateDialog(int id) {
         switch (id) {
@@ -78,7 +112,7 @@ public class AddMeetingActivity extends AppCompatActivity {
             case 2:
                 return new TimePickerDialog(this, startTimePickerListener, startHour, startMinutes, false);
             case 3:
-                return new TimePickerDialog(this,endTimePickerListener,endHour,endMinutes,false);
+                return new TimePickerDialog(this, endTimePickerListener, endHour, endMinutes, false);
 
         }
 
@@ -105,13 +139,15 @@ public class AddMeetingActivity extends AppCompatActivity {
         @Override
         public void onTimeSet(TimePicker timePicker, int i, int i1) {
             endHour = i;
-            endMinutes= i1;
-            setEndTimeText(endHour,endMinutes);
+            endMinutes = i1;
+            setEndTimeText(endHour, endMinutes);
         }
     };
+
     private void setEndTimeText(int hour, int minute) {
         endTimeTV.setText(new StringBuilder().append(hour).append(":").append(minute));
     }
+
     private void setStartTimeText(int hour, int minute) {
         startTimeTV.setText(new StringBuilder().append(hour).append(":").append(minute));
     }

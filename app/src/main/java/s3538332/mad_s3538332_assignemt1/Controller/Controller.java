@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import s3538332.mad_s3538332_assignemt1.Model.Friend;
 import s3538332.mad_s3538332_assignemt1.Model.FriendList;
+import s3538332.mad_s3538332_assignemt1.Model.MeetingList;
 import s3538332.mad_s3538332_assignemt1.Model.TempAttendeeList;
 
 /**
@@ -19,11 +20,13 @@ public class Controller {
     FriendList friendList;
     Context context;
     TempAttendeeList tempAList;
+    MeetingList meetingList;
 
     public Controller(Context context) {
         friendList = FriendList.getInstance();
         this.context = context;
         tempAList = TempAttendeeList.getInstance();
+        meetingList = MeetingList.getInstance();
     }
 
     public void addFriend(String name, String email) {
@@ -114,5 +117,18 @@ public class Controller {
             Log.i(LOG_TAG,id +" is removed from TempList");
         }
     }
+    public boolean isTempListEmpty(){
+        if(tempAList.isEmpty()){
+            return true;
+        }
+        return false;
+    }
+    public void addMeeting(String title, String location, String startTime, String endTime){
+        if (meetingList.addMeeting(title,location,startTime,endTime) == true) {
+            Toast.makeText(context, "New meeting is created", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, " Meetings is already exist", Toast.LENGTH_SHORT).show();
 
+        }
+    }
 }

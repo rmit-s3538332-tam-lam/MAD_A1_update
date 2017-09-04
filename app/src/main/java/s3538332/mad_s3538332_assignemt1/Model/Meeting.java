@@ -14,7 +14,11 @@ public class Meeting {
     private ArrayList<Friend> attendeeList;
     private String location;
 
-    public Meeting(){
+    public Meeting(String title, String location, String startTime, String endTime){
+        setTitle(title);
+        setLocation(location);
+        setStartTime(startTime);
+        setEndTime(endTime);
 
     }
 
