@@ -34,7 +34,9 @@ public class Controller {
     }
 
     public void removeFriend(int position) {
-        friendList.remove(position);
+        if (friendList.size() > position) {
+            friendList.remove(position);
+        }
     }
 
     public ArrayList<String> nameOnlyList() {
@@ -66,7 +68,7 @@ public class Controller {
         return birthday;
     }
 
-    public void saveFriend(int id,String name, String email, String birthday){
+    public void saveFriend(int id, String name, String email, String birthday) {
         Friend friend = friendList.get(id);
         friend.setName(name);
         friend.setEmail(email);

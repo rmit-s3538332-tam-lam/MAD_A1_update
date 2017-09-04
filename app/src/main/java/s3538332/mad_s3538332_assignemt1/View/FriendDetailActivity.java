@@ -60,9 +60,10 @@ public class FriendDetailActivity extends AppCompatActivity {
     }
 
     public void deleteBtnOnClick(View view) {
-
+        controller.removeFriend(id);
+        finish();
     }
-    
+
     public void saveBtnOnClick(View view) {
         name = nameTF.getText().toString();
         email = emailTF.getText().toString();
