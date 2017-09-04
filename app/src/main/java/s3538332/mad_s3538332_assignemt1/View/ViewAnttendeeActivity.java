@@ -41,6 +41,8 @@ public class ViewAnttendeeActivity extends AppCompatActivity {
         if (requestCode == REQ_CODE && resultCode == RESULT_OK && data != null) {
             id = data.getIntExtra("ID", 0);
             Log.i(controller.LOG_TAG, "ID " + id);
+            controller.addToTempList(id);
+
             Toast.makeText(this, "ID: " + id, Toast.LENGTH_SHORT).show();
         }
     }

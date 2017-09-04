@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import s3538332.mad_s3538332_assignemt1.Model.Friend;
 import s3538332.mad_s3538332_assignemt1.Model.FriendList;
+import s3538332.mad_s3538332_assignemt1.Model.TempAttendeeList;
 
 /**
  * Created by Tam on 4/9/17.
@@ -17,10 +18,11 @@ public class Controller {
     public static String LOG_TAG = "MAD_A1";
     FriendList friendList;
     Context context;
-
+    TempAttendeeList tempAList;
     public Controller(Context context) {
         friendList = FriendList.getInstance();
         this.context = context;
+        tempAList = TempAttendeeList.getInstance();
     }
 
     public void addFriend(String name, String email) {
@@ -74,6 +76,12 @@ public class Controller {
         friend.setEmail(email);
         friend.setBirthday(birthday);
     }
-
+    public void addToTempList(int id){
+        if(friendList.size()>id){
+            Friend friend = friendList.get(id);
+            tempAList.add(friend);
+            Log.i(LOG_TAG,"Added to TempList: "+ friend.getName());
+        }
+    }
 
 }
