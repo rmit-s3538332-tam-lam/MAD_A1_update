@@ -4,6 +4,6 @@
     android:layout_height="50dp"
     android:gravity="top|bottom"
     android:paddingLeft="10dp"
-    >
+    android:longClickable="true">
 
 </TextView>

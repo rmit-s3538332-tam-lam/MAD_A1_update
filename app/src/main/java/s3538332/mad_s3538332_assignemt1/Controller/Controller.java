@@ -31,6 +31,9 @@ public class Controller {
 
         }
     }
+    public void removeFriend(int position){
+        friendList.remove(position);
+    }
     public ArrayList<String> nameOnlyList(){
         ArrayList<String> nameOnlyList = friendList.nameOnlyList();
         return nameOnlyList;

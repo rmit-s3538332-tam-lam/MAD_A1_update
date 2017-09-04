@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 
 import s3538332.mad_s3538332_assignemt1.Controller.ContactDataManager;
 import s3538332.mad_s3538332_assignemt1.Controller.Controller;
+import s3538332.mad_s3538332_assignemt1.Controller.longClickListener;
 import s3538332.mad_s3538332_assignemt1.R;
 
 public class FriendListActivity extends AppCompatActivity {
@@ -34,6 +36,15 @@ public class FriendListActivity extends AppCompatActivity {
         addFriendBtn = (Button) findViewById(R.id.addFriendBtn);
         friendListView = (ListView) findViewById(R.id.friendListView);
 
+
+        friendListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View viewClicked, int position, long id) {
+                controller.removeFriend(position);
+                populateListView();
+                return true;
+            }
+        });
 
     }
 
@@ -70,7 +81,7 @@ public class FriendListActivity extends AppCompatActivity {
     }
 
 
-    private void populateListView() {
+    public void populateListView() {
         ArrayList<String> nameOnlyList = controller.nameOnlyList();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.itemlistview, nameOnlyList);
         friendListView.setAdapter(adapter);
