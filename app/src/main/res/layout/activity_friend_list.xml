@@ -6,4 +6,23 @@
     android:layout_height="match_parent"
     tools:context="s3538332.mad_s3538332_assignemt1.View.FriendListActivity">
 
+    <LinearLayout
+        android:layout_width="368dp"
+        android:layout_height="495dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
+
+        <Button
+            android:id="@+id/addFriendBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="addFriendBtnOnClick"
+            android:text="@string/addFriendBtn" />
+
+        <ListView
+            android:id="@+id/friendListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

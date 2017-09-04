@@ -2,5 +2,6 @@
     <string name="app_name">MAD_Assignment1</string>
     <string name="Friends">Friends</string>
     <string name="Meetings">Meetings</string>
+    <string name="addFriendBtn">Add Friend</string>
 
 </resources>
