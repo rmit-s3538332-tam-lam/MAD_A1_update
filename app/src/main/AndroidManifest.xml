@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="s3538332.mad_s3538332_assignemt1">
+
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,7 +21,9 @@
         <activity android:name=".View.FriendListActivity" />
         <activity android:name=".View.MeetingListActivity" />
         <activity android:name=".View.AddFriendActivity" />
-        <activity android:name=".View.AddMeetingActivity"></activity>
+        <activity android:name=".View.AddMeetingActivity" />
+        <activity android:name=".View.FriendDetailActivity" />
+        <activity android:name=".View.MeetingDetailActivity"></activity>
     </application>
 
 </manifest>

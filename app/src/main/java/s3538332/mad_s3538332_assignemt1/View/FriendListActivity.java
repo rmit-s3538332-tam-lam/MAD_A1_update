@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import s3538332.mad_s3538332_assignemt1.Controller.ContactDataManager;
 import s3538332.mad_s3538332_assignemt1.Controller.Controller;
 import s3538332.mad_s3538332_assignemt1.Controller.longClickListener;
+import s3538332.mad_s3538332_assignemt1.Controller.popActListener;
 import s3538332.mad_s3538332_assignemt1.R;
 
 public class FriendListActivity extends AppCompatActivity {
@@ -24,6 +25,7 @@ public class FriendListActivity extends AppCompatActivity {
     ListView friendListView;
     Intent contactPickerIntent;
     Controller controller;
+    Intent viewDetailIntent;
     protected static final int PICK_CONTACTS = 100;
     private static final String LOG_TAG = MainActivity.class.getName();
     public String name, email;
@@ -35,8 +37,25 @@ public class FriendListActivity extends AppCompatActivity {
         controller = new Controller(this);
         addFriendBtn = (Button) findViewById(R.id.addFriendBtn);
         friendListView = (ListView) findViewById(R.id.friendListView);
+        viewDetailIntent = new Intent(this, FriendListActivity.class);
+
+        setListItemListener();
 
 
+
+
+
+    }
+
+    public void setListItemListener(){
+        friendListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View viewClicked, int position, long id) {
+                viewDetailIntent.putExtra("ID",position);
+                Log.i(LOG_TAG,"Clicked on "+ position);
+                startActivity(viewDetailIntent);
+            }
+        });
         friendListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View viewClicked, int position, long id) {
@@ -47,7 +66,6 @@ public class FriendListActivity extends AppCompatActivity {
         });
 
     }
-
     public void addFriendBtnOnClick(View view) {
         contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
         startActivityForResult(contactPickerIntent, PICK_CONTACTS);
