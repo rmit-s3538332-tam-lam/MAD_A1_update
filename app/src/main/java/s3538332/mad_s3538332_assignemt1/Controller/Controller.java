@@ -2,6 +2,9 @@ package s3538332.mad_s3538332_assignemt1.Controller;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import s3538332.mad_s3538332_assignemt1.Model.Friend;
 import s3538332.mad_s3538332_assignemt1.Model.FriendList;
@@ -20,8 +23,16 @@ public class Controller {
     }
 
     public void addFriend(String name, String email){
-        Friend friend = new Friend(name, email);
-        friendList.add(friend);
-        Log.i(LOG_TAG,"Added friend name: "+ name);
+        if(friendList.addFriend(name,email) == true){
+            Log.i(LOG_TAG,"Added friend name: "+ name);
+            Toast.makeText(context,name+ " is added to your friend list!",Toast.LENGTH_SHORT).show();
+        }  else{
+            Toast.makeText(context,name+ " is already existed in friend list.",Toast.LENGTH_SHORT).show();
+
+        }
+    }
+    public ArrayList<String> nameOnlyList(){
+        ArrayList<String> nameOnlyList = friendList.nameOnlyList();
+        return nameOnlyList;
     }
 }
