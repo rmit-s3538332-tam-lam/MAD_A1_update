@@ -44,7 +44,8 @@ public class FriendListActivity extends AppCompatActivity {
     public void setListItemListener(){
         friendListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View viewClicked, int position, long id) {
+            public void onItemClick(AdapterView<?> adapterView, View viewClicked,
+                                    int position, long id) {
                 Log.i(LOG_TAG,"Clicked on "+ position);
                 viewDetailIntent.putExtra("ID",Integer.toString(position));
                 startActivity(viewDetailIntent);
@@ -76,14 +77,16 @@ public class FriendListActivity extends AppCompatActivity {
                     name = contactsManager.getContactName();
                     email = contactsManager.getContactEmail();
                     if (name == null || name.isEmpty() || email == null || email.isEmpty()) {
-                        Toast.makeText(this, "Contact must have at least an email", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, "Contact must have at least an email",
+                                Toast.LENGTH_LONG).show();
 
                     } else {
                         controller.addFriend(name, email);
                     }
                 } catch (ContactDataManager.ContactQueryException e) {
                     Log.e(LOG_TAG, e.getMessage());
-                    Toast.makeText(this, "Require permission to use Contact details", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Require permission to use Contact details",
+                            Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -93,7 +96,8 @@ public class FriendListActivity extends AppCompatActivity {
 
     public void populateListView() {
         ArrayList<String> nameOnlyList = controller.nameOnlyList();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.itemlistview, nameOnlyList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.itemlistview,
+                nameOnlyList);
         friendListView.setAdapter(adapter);
 
     }

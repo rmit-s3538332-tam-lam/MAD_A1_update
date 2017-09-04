@@ -37,6 +37,7 @@
             android:id="@+id/emailLbl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="@string/emailLbl"
             android:textSize="18sp" />
 
@@ -51,6 +52,7 @@
             android:id="@+id/birthdayLbl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="@string/birthdayLbl"
             android:textSize="18sp" />
 
@@ -61,7 +63,9 @@
             android:layout_marginTop="10dp"
             android:text="@string/birthDayText"
             android:textAlignment="center"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:onClick="birthdayTextOnClick"
+            android:clickable="true"/>
 
         <Button
             android:id="@+id/saveBtn"
