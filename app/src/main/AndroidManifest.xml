@@ -23,7 +23,9 @@
         <activity android:name=".View.AddFriendActivity" />
         <activity android:name=".View.AddMeetingActivity" />
         <activity android:name=".View.FriendDetailActivity" />
-        <activity android:name=".View.MeetingDetailActivity"></activity>
+        <activity android:name=".View.MeetingDetailActivity" />
+        <activity android:name=".View.ViewAnttendeeActivity" />
+        <activity android:name=".View.AddAttendeeActivity"></activity>
     </application>
 
 </manifest>

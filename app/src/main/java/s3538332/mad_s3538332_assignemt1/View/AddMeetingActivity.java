@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import s3538332.mad_s3538332_assignemt1.Controller.popActListener;
 import s3538332.mad_s3538332_assignemt1.R;
 
 public class AddMeetingActivity extends AppCompatActivity {
@@ -23,6 +24,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         createBtn = (Button) findViewById(R.id.createBtn);
         discardBtn = (Button) findViewById(R.id.discardBtn);
 
+        addAnttendeeBtn.setOnClickListener(new popActListener(this,ViewAnttendeeActivity.class));
 
     }
 
