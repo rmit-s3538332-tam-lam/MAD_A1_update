@@ -9,5 +9,19 @@
     <string name="birthDayText">Select birthday here</string>
     <string name="saveBtn">Save</string>
     <string name="deleteBtn">Delete Friend</string>
+    <string name="addMeetingBtn">Add meeting</string>
+    <string name="discardBtn">Discard</string>
+    <string name="titleLbl">Title:</string>
+    <string name="locationLbl">Location: </string>
+    <string name="dateLbl">Date:</string>
+    <string name="startTimeLbl">Start time:</string>
+    <string name="endTimeLbl">End time:</string>
+
+    <string name="date">Select date here</string>
+    <string name="startTime">Select start time here</string>
+    <string name="endTime">Select end time here</string>
+    <string name="createBtn">Create</string>
+    <string name="addAttendeeBtn">Add attendee</string>
+
 
 </resources>
