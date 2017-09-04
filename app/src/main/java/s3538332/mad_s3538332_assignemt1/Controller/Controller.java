@@ -17,25 +17,53 @@ public class Controller {
     public static String LOG_TAG = "MAD_A1";
     FriendList friendList;
     Context context;
-    public Controller (Context context){
+
+    public Controller(Context context) {
         friendList = FriendList.getInstance();
         this.context = context;
     }
 
-    public void addFriend(String name, String email){
-        if(friendList.addFriend(name,email) == true){
-            Log.i(LOG_TAG,"Added friend name: "+ name);
-            Toast.makeText(context,name+ " is added to your friend list!",Toast.LENGTH_SHORT).show();
-        }  else{
-            Toast.makeText(context,name+ " is already existed in friend list.",Toast.LENGTH_SHORT).show();
+    public void addFriend(String name, String email) {
+        if (friendList.addFriend(name, email) == true) {
+            Log.i(LOG_TAG, "Added friend name: " + name);
+            Toast.makeText(context, name + " is added to your friend list!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, name + " is already existed in friend list.", Toast.LENGTH_SHORT).show();
 
         }
     }
-    public void removeFriend(int position){
+
+    public void removeFriend(int position) {
         friendList.remove(position);
     }
-    public ArrayList<String> nameOnlyList(){
+
+    public ArrayList<String> nameOnlyList() {
         ArrayList<String> nameOnlyList = friendList.nameOnlyList();
         return nameOnlyList;
     }
+
+    public String getNameById(int id) {
+        String name = "";
+        if (friendList.get(id) != null) {
+            name = friendList.get(id).getName();
+        }
+        return name;
+    }
+
+    public String getEmailById(int id) {
+        String email = "";
+        if (friendList.get(id) != null) {
+            email = friendList.get(id).getEmail();
+        }
+        return email;
+    }
+
+    public String getBirthDayById(int id) {
+        String birthday = "";
+        if (friendList.get(id) != null) {
+            birthday = friendList.get(id).getBirthday();
+        }
+        return birthday;
+    }
+
 }

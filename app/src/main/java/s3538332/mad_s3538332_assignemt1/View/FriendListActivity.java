@@ -39,18 +39,14 @@ public class FriendListActivity extends AppCompatActivity {
 
         setListItemListener();
 
-
-
-
-
     }
 
     public void setListItemListener(){
         friendListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View viewClicked, int position, long id) {
-                viewDetailIntent.putExtra("ID",position);
                 Log.i(LOG_TAG,"Clicked on "+ position);
+                viewDetailIntent.putExtra("ID",Integer.toString(position));
                 startActivity(viewDetailIntent);
             }
         });
@@ -85,8 +81,6 @@ public class FriendListActivity extends AppCompatActivity {
                     } else {
                         controller.addFriend(name, email);
                     }
-//                    populateListView();
-
                 } catch (ContactDataManager.ContactQueryException e) {
                     Log.e(LOG_TAG, e.getMessage());
                     Toast.makeText(this, "Require permission to use Contact details", Toast.LENGTH_LONG).show();

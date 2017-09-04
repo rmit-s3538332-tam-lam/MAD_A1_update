@@ -8,6 +8,6 @@
     <string name="birthdayLbl">Birthday: </string>
     <string name="birthDayText">Select birthday here</string>
     <string name="saveBtn">Save</string>
-    <string name="deleteBtn">Delete</string>
+    <string name="deleteBtn">Delete Friend</string>
 
 </resources>
