@@ -3,5 +3,11 @@
     <string name="Friends">Friends</string>
     <string name="Meetings">Meetings</string>
     <string name="addFriendBtn">Add Friend</string>
+    <string name="nameLbl">Name: </string>
+    <string name="emailLbl">Email: </string>
+    <string name="birthdayLbl">Birthday: </string>
+    <string name="birthDayText">Select birthday here</string>
+    <string name="saveBtn">Save</string>
+    <string name="deleteBtn">Delete</string>
 
 </resources>

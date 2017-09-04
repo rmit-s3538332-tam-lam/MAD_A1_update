@@ -16,8 +16,6 @@ import java.util.ArrayList;
 
 import s3538332.mad_s3538332_assignemt1.Controller.ContactDataManager;
 import s3538332.mad_s3538332_assignemt1.Controller.Controller;
-import s3538332.mad_s3538332_assignemt1.Controller.longClickListener;
-import s3538332.mad_s3538332_assignemt1.Controller.popActListener;
 import s3538332.mad_s3538332_assignemt1.R;
 
 public class FriendListActivity extends AppCompatActivity {

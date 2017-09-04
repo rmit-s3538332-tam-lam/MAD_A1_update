@@ -6,4 +6,77 @@
     android:layout_height="match_parent"
     tools:context="s3538332.mad_s3538332_assignemt1.View.FriendDetailActivity">
 
+    <LinearLayout
+        android:layout_width="368dp"
+        android:layout_height="495dp"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingEnd="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingStart="10dp"
+        android:paddingTop="10dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="9dp">
+
+        <TextView
+            android:id="@+id/nameLbl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/nameLbl"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/nameTF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Name" />
+
+        <TextView
+            android:id="@+id/emailLbl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/emailLbl"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/emailTF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Name" />
+
+        <TextView
+            android:id="@+id/birthdayLbl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/birthdayLbl"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/birthdayText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/birthDayText"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/saveBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/saveBtn" />
+
+        <Button
+            android:id="@+id/deleteBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/deleteBtn" />
+
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
