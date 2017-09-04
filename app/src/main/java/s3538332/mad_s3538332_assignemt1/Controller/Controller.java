@@ -95,14 +95,14 @@ public class Controller {
     }
 
     public boolean existInTempList(int id) {
-        boolean boo =false;
+        boolean boo = false;
         if (friendList.size() > id) {
             Friend friend = friendList.get(id);
             String name = friend.getName();
             String email = friend.getEmail();
             for (int i = 0; i < tempAList.size(); i++) {
                 Friend temp = tempAList.get(i);
-                if(name.equals(temp.getName())&& email.equals(temp.getEmail())){
+                if (name.equals(temp.getName()) && email.equals(temp.getEmail())) {
                     boo = true;
                     return boo;
                 }
@@ -111,24 +111,32 @@ public class Controller {
         }
         return boo;
     }
-    public void removeFromTemp(int id){
-        if(tempAList.size()>id){
+
+    public void removeFromTemp(int id) {
+        if (tempAList.size() > id) {
             tempAList.remove(id);
-            Log.i(LOG_TAG,id +" is removed from TempList");
+            Log.i(LOG_TAG, id + " is removed from TempList");
         }
     }
-    public boolean isTempListEmpty(){
-        if(tempAList.isEmpty()){
+
+    public boolean isTempListEmpty() {
+        if (tempAList.isEmpty()) {
             return true;
         }
         return false;
     }
-    public void addMeeting(String title, String location, String startTime, String endTime){
-        if (meetingList.addMeeting(title,location,startTime,endTime) == true) {
+
+    public void addMeeting(String title, String location, String startTime, String endTime) {
+        if (meetingList.addMeeting(title, location, startTime, endTime,tempAList) == true) {
             Toast.makeText(context, "New meeting is created", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(context, " Meetings is already exist", Toast.LENGTH_SHORT).show();
 
         }
+    }
+
+    public ArrayList<String> titleOnlyList() {
+        return meetingList.nameOnlyList();
+
     }
 }

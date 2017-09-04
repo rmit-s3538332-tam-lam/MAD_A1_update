@@ -30,10 +30,10 @@ public class MeetingList extends ArrayList<Meeting> {
 
     }
 
-    public boolean addMeeting(String title, String location,String startTime, String endTime) {
+    public boolean addMeeting(String title, String location,String startTime, String endTime,TempAttendeeList attendeeList) {
         Boolean boo = false;
         if (meetingsList.size() == 0) {
-            Meeting meeting = new Meeting(title, location,startTime,endTime);
+            Meeting meeting = new Meeting(title, location,startTime,endTime, attendeeList);
             meetingsList.add(meeting);
             boo = true;
             return boo;
@@ -47,10 +47,20 @@ public class MeetingList extends ArrayList<Meeting> {
                 }
             }
             Log.i(LOG_TAG, "Added new meeting");
-            Meeting meeting = new Meeting(title,location,startTime,endTime);
+            Meeting meeting = new Meeting(title,location,startTime,endTime,attendeeList);
             meetingsList.add(meeting);
             boo = true;
+            attendeeList.clear();
+
         }
         return boo;
+    }
+    public ArrayList<String> nameOnlyList() {
+        ArrayList<String> nameOnlyList = new ArrayList<String>();
+        for (int i = 0; i < this.size(); i++) {
+            String name = this.get(i).getTitle();
+            nameOnlyList.add(name);
+        }
+        return nameOnlyList;
     }
 }

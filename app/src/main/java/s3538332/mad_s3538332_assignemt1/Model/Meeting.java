@@ -11,10 +11,10 @@ public class Meeting {
     private String title;
     private String startTime;
     private String endTime;
-    private ArrayList<Friend> attendeeList;
+    private TempAttendeeList attendeeList;
     private String location;
 
-    public Meeting(String title, String location, String startTime, String endTime){
+    public Meeting(String title, String location, String startTime, String endTime,TempAttendeeList attendeeList){
         setTitle(title);
         setLocation(location);
         setStartTime(startTime);
@@ -38,7 +38,7 @@ public class Meeting {
         this.endTime = endTime;
     }
 
-    public void setAttendeeList(ArrayList<Friend> attendeeList) {
+    public void setAttendeeList(TempAttendeeList attendeeList) {
         this.attendeeList = attendeeList;
     }
 
@@ -62,7 +62,7 @@ public class Meeting {
         return endTime;
     }
 
-    public ArrayList<Friend> getAttendeeList() {
+    public TempAttendeeList getAttendeeList() {
         return attendeeList;
     }
 

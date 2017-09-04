@@ -17,6 +17,7 @@ public class FriendList extends ArrayList<Friend> {
     }
 
     public static FriendList getInstance() {
+
         return friendList;
     }
 
