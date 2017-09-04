@@ -16,6 +16,12 @@ public class Friend {
         setBirthday(birthday);
     }
 
+    public Friend(String name, String email){
+        setName(name);
+        setEmail(email);
+        setBirthday("");
+    }
+
     public String getName() {
         return name;
     }

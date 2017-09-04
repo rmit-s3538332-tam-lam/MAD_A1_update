@@ -11,12 +11,14 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import s3538332.mad_s3538332_assignemt1.Controller.ContactDataManager;
+import s3538332.mad_s3538332_assignemt1.Controller.Controller;
 import s3538332.mad_s3538332_assignemt1.R;
 
 public class FriendListActivity extends AppCompatActivity {
     Button addFriendBtn;
     ListView friendListView;
     Intent contactPickerIntent;
+    Controller controller;
     protected static final int PICK_CONTACTS = 100;
     private static final String LOG_TAG = MainActivity.class.getName();
     public String name, email;
@@ -24,7 +26,7 @@ public class FriendListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_list);
-
+        controller = new Controller(this);
         addFriendBtn =(Button) findViewById(R.id.addFriendBtn);
         friendListView = (ListView) findViewById(R.id.friendListView);
 
@@ -46,6 +48,7 @@ public class FriendListActivity extends AppCompatActivity {
                     name = contactsManager.getContactName();
                     email = contactsManager.getContactEmail();
                     Toast.makeText(this,name+ " "+email, Toast.LENGTH_LONG).show();
+                    controller.addFriend(name,email);
 
                 } catch (ContactDataManager.ContactQueryException e) {
                     Log.e(LOG_TAG, e.getMessage());
