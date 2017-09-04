@@ -37,7 +37,7 @@ public class FriendListActivity extends AppCompatActivity {
         controller = new Controller(this);
         addFriendBtn = (Button) findViewById(R.id.addFriendBtn);
         friendListView = (ListView) findViewById(R.id.friendListView);
-        viewDetailIntent = new Intent(this, FriendListActivity.class);
+        viewDetailIntent = new Intent(this, FriendDetailActivity.class);
 
         setListItemListener();
 
