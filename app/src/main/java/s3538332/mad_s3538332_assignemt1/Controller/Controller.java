@@ -66,4 +66,11 @@ public class Controller {
         return birthday;
     }
 
+    public void saveFriend(int id,String name, String email, String birthday){
+        Friend friend = friendList.get(id);
+        friend.setName(name);
+        friend.setEmail(email);
+        friend.setBirthday(birthday);
+    }
+
 }

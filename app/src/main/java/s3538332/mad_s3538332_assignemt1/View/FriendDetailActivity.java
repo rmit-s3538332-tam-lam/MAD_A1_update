@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ public class FriendDetailActivity extends AppCompatActivity {
     private Intent intent;
     private Controller controller;
     static String LOG_TAG = "MAD_A1";
+    String name, email, birthday;
     int id;
 
     @Override
@@ -33,27 +35,40 @@ public class FriendDetailActivity extends AppCompatActivity {
         deleteBtn = (Button) findViewById(R.id.deleteBtn);
         birthdayText = (TextView) findViewById(R.id.birthdayText);
         intent = getIntent();
-        String idString = intent.getExtras().getString("ID");
-        if(!idString.isEmpty()) {
-            Log.i(LOG_TAG, "Received ID: " + idString);
-            id = Integer.parseInt(idString);
-        }
-        populateDetail(id);
+        populateDetail();
 
     }
 
-    public void populateDetail(int id) {
-        String name = controller.getNameById(id);
-        String email = controller.getEmailById(id);
-        String birthDay = controller.getBirthDayById(id);
+    public void populateDetail() {
+        String idString = intent.getExtras().getString("ID");
+        if (!idString.isEmpty()) {
+            Log.i(LOG_TAG, "Received ID: " + idString);
+            id = Integer.parseInt(idString);
+        }
+        name = controller.getNameById(id);
+        email = controller.getEmailById(id);
+        birthday = controller.getBirthDayById(id);
         if (!name.isEmpty()) {
             nameTF.setText(name, TextView.BufferType.EDITABLE);
         }
         if (!email.isEmpty()) {
             emailTF.setText(email, TextView.BufferType.EDITABLE);
         }
-        if (!birthDay.isEmpty()) {
-            birthdayText.setText(birthDay);
+        if (!birthday.isEmpty()) {
+            birthdayText.setText(birthday);
         }
+    }
+
+    public void deleteBtnOnClick(View view) {
+
+    }
+    
+    public void saveBtnOnClick(View view) {
+        name = nameTF.getText().toString();
+        email = emailTF.getText().toString();
+        birthday = birthdayText.getText().toString();
+
+        controller.saveFriend(id, name, email, birthday);
+        finish();
     }
 }
