@@ -34,6 +34,7 @@ public class MeetingList extends ArrayList<Meeting> {
         Boolean boo = false;
         if (meetingsList.size() == 0) {
             Meeting meeting = new Meeting(title, location,startTime,endTime, attendeeList);
+            Log.i(LOG_TAG,title+ " is added to meeting list");
             meetingsList.add(meeting);
             boo = true;
             return boo;
@@ -49,6 +50,7 @@ public class MeetingList extends ArrayList<Meeting> {
             Log.i(LOG_TAG, "Added new meeting");
             Meeting meeting = new Meeting(title,location,startTime,endTime,attendeeList);
             meetingsList.add(meeting);
+            Log.i(LOG_TAG,title+ " is added to meeting list");
             boo = true;
             attendeeList.clear();
 

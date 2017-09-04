@@ -2,7 +2,9 @@ package s3538332.mad_s3538332_assignemt1.View;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -27,6 +29,7 @@ public class MeetingListActivity extends AppCompatActivity {
         meetingListView = (ListView) findViewById(R.id.meetingListView);
         addMeetingBtn.setOnClickListener( new popActListener(this,AddMeetingActivity.class));
         populateListView();
+        setListItemListener();
     }
 
     public void populateListView() {
@@ -41,5 +44,22 @@ public class MeetingListActivity extends AppCompatActivity {
     protected void onPostResume() {
         super.onPostResume();
         populateListView();
+    }
+
+    public void setListItemListener(){
+        meetingListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                controller.removeMeeting(i);
+                populateListView();
+                return true;
+            }
+        });
+        meetingListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+        });
     }
 }

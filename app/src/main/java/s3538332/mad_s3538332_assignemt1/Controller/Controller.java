@@ -127,7 +127,7 @@ public class Controller {
     }
 
     public void addMeeting(String title, String location, String startTime, String endTime) {
-        if (meetingList.addMeeting(title, location, startTime, endTime,tempAList) == true) {
+        if (meetingList.addMeeting(title, location, startTime, endTime, tempAList) == true) {
             Toast.makeText(context, "New meeting is created", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(context, " Meetings is already exist", Toast.LENGTH_SHORT).show();
@@ -138,5 +138,12 @@ public class Controller {
     public ArrayList<String> titleOnlyList() {
         return meetingList.nameOnlyList();
 
+    }
+
+    public void removeMeeting(int id) {
+        if (meetingList.size() > id) {
+            meetingList.remove(id);
+            Log.i(LOG_TAG, "Item removed");
+        }
     }
 }
