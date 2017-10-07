@@ -24,4 +24,16 @@ public class TempAttendeeList extends ArrayList<Friend> {
         }
         return nameOnlyList;
     }
+
+    public String attendeeIdString(){
+        String attendeeIdString = "";
+        if(tempAList!= null && tempAList.size()>0) {
+            for (int i = 0; i < tempAList.size(); i++) {
+                String id = Integer.toString(tempAList.get(i).getId());
+                attendeeIdString += id + " ";
+            }
+        }
+        return attendeeIdString;
+    }
+
 }
