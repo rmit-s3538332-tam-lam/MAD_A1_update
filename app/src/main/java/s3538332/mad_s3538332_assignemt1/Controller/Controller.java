@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import s3538332.mad_s3538332_assignemt1.Model.Friend;
 import s3538332.mad_s3538332_assignemt1.Model.FriendList;
+import s3538332.mad_s3538332_assignemt1.Model.Meeting;
 import s3538332.mad_s3538332_assignemt1.Model.MeetingList;
 import s3538332.mad_s3538332_assignemt1.Model.TempAttendeeList;
 
@@ -84,12 +85,20 @@ public class Controller {
         return birthday;
     }
 
+    public void saveMeeting(int id, String title, String startTime, String endTime) {
+        Meeting meeting = meetingList.get(id);
+        meeting.setTitle(title);
+        meeting.setStartTime(startTime);
+        meeting.setEndTime(endTime);
+
+    }
     public void saveFriend(int id, String name, String email, String birthday) {
         Friend friend = friendList.get(id);
         friend.setName(name);
         friend.setEmail(email);
         friend.setBirthday(birthday);
     }
+
 
     public void addToTempList(int id) {
         if (friendList.size() > id) {
@@ -165,7 +174,41 @@ public class Controller {
         }
     }
 
-    public void emptyAttendeeList() {
+    public String getTitlebyId(int id) {
+        String title = "";
+        if (meetingList.get(id) != null) {
+            title = meetingList.get(id).getTitle();
+        }
+        return title;
+    }
+
+    public String getStartTime(int id) {
+        String startTime = "";
+        if (meetingList.get(id) != null) {
+            startTime = meetingList.get(id).getStartTime();
+        }
+        return startTime;
+    }
+
+    public String getEndTime(int id) {
+        String endTime = "";
+        if (meetingList.get(id) != null) {
+            endTime = meetingList.get(id).getEndTime();
+        }
+        return endTime;
+    }
+
+    public String getAttendeeIdString(int id) {
+        String idString = "";
+        if (meetingList.get(id) != null) {
+            idString = meetingList.get(id).AttendeeIdString();
+        }
+        return idString;
+    }
+    public void emptyAttendeeList(){
         tempAList.clear();
     }
 }
+
+
+

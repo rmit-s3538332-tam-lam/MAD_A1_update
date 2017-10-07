@@ -99,12 +99,14 @@
                 android:id="@+id/createBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="saveBtnOnClick"
                 android:text="@string/saveBtn" />
 
             <Button
                 android:id="@+id/discardBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="discardOnClick"
                 android:text="@string/discardBtn" />
 
         </LinearLayout>

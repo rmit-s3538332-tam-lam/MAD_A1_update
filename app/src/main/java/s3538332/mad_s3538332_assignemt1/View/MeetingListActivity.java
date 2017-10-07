@@ -44,12 +44,6 @@ public class MeetingListActivity extends AppCompatActivity {
         super.onStop();
     }
 
-//    protected void onStart() {
-//        super.onStart();
-//        meettingDBController.logMeetingDB();
-//        meettingDBController.onStart();
-//    }
-
 
     @Override
     protected void onStart() {
