@@ -32,15 +32,36 @@ public class DatabaseController {
 
     public void onStart() {
         //onStart import friends from database to temporary friendList object.
+        Log.i("SQL", "onStart: Update temp FriendList");
 
+        try {
+            Cursor c = friendDB.rawQuery("SELECT * FROM friendTable", null);
+            int fName = c.getColumnIndex("name");
+            int fEmail = c.getColumnIndex("email");
+            int fBirthday = c.getColumnIndex("birthday");
+            int fLocation = c.getColumnIndex("location");
+            c.moveToFirst();
+            while (c != null) {
+                Log.i("SQL", "name: " + c.getString(fName) + "     email: " + c.getString(fEmail));
+                String newName = c.getString(fName);
+                String newEmail = c.getString(fEmail);
+                String newBirthday = c.getString(fBirthday);
+                String newLocation = c.getString(fLocation);
+                friendList.addFriend(newName, newEmail, newBirthday, newLocation);
+                c.moveToNext();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.i("SQL", "Exception");
+        }
 
     }
 
     public void onStop() {
         //onStop delete current database, save new friendlist to database.
-        Log.i("SQL","Saving friendList to database....");
+        Log.i("SQL", "onStop: Saving friendList to database....");
 
-        if (friendList != null && friendList.size() > 1) {
+        if (friendList != null && friendList.size() > 0) {
             deleteFriendTable();
             for (int i = 0; i < friendList.size(); i++) {
                 String name = friendList.get(i).getName();
@@ -49,13 +70,12 @@ public class DatabaseController {
                 String location = friendList.get(i).getLocation();
                 addEntryToFriendDB(name, email, birthday, location);
             }
-            Log.i("SQL","Saved successfully.");
-        } else{
-            Log.i("SQL","No entry in temporary friendlist to save");
+            Log.i("SQL", "Saved successfully.");
+        } else {
+            Log.i("SQL", "No entry in temporary friendlist to save");
         }
 
     }
-
 
     public void deleteFriendTable() {
         friendDB.delete("friendTable", null, null);

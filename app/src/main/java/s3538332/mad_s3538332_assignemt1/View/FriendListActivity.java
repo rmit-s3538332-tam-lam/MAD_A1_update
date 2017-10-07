@@ -50,7 +50,7 @@ public class FriendListActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         dBController.logFriendTable();
-//        controller.deleteFriendTable();
+        dBController.onStart();
     }
 
     public void setListItemListener(){
@@ -126,4 +126,5 @@ public class FriendListActivity extends AppCompatActivity {
         super.onStop();
         dBController.onStop();
     }
+
 }

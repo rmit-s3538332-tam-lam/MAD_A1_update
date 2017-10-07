@@ -13,9 +13,10 @@ import s3538332.mad_s3538332_assignemt1.Controller.DatabaseController;
 public class FriendList extends ArrayList<Friend> {
     static String LOG_TAG = "MAD_A1";
     static FriendList friendList = new FriendList();
-    DatabaseController dbController;
+
 
     private FriendList() {
+
     }
 
     public static FriendList getInstance() {
@@ -51,6 +52,30 @@ public class FriendList extends ArrayList<Friend> {
             }
             Log.i(LOG_TAG, "Added new friend");
             Friend newFriend = new Friend(name, email);
+            friendList.add(newFriend);
+            boo = true;
+        }
+        return boo;
+    }
+
+    public boolean addFriend(String name, String email, String birthday, String location) {
+        Boolean boo = false;
+        if (friendList.size() == 0) {
+            Friend f = new Friend(name, email, birthday, location);
+            friendList.add(f);
+            boo = true;
+            return boo;
+        }
+        if (friendList.size() > 0) {
+            for (int i = 0; i < friendList.size(); i++) {
+                if (name.equals(friendList.get(i).getName()) && email.equals(friendList.get(i).getEmail())) {
+                    Log.i(LOG_TAG, "Friend already exist");
+                    boo = false;
+                    return boo;
+                }
+            }
+            Log.i(LOG_TAG, "Added new friend");
+            Friend newFriend = new Friend(name, email, birthday, location);
             friendList.add(newFriend);
             boo = true;
         }
