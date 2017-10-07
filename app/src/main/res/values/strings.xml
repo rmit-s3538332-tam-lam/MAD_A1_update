@@ -17,6 +17,7 @@
     <string name="startTimeLbl">Start time:</string>
     <string name="endTimeLbl">End time:</string>
     <string name="viewLocationBtn">View Location</string>
+    <string name="attendeeTV">Attendee: </string>
 
     <string name="date">Select date here</string>
     <string name="startTime">Select start time here</string>

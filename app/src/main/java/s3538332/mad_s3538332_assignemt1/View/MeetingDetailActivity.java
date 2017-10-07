@@ -13,7 +13,7 @@ import s3538332.mad_s3538332_assignemt1.Controller.Controller;
 import s3538332.mad_s3538332_assignemt1.R;
 
 public class MeetingDetailActivity extends AppCompatActivity {
-    private TextView dateTV, startTimeTV, endTimeTV;
+    private TextView dateTV, startTimeTV, endTimeTV,attendeeTV;
     private Button locationBtn, saveBtn, discardBtn;
     private EditText titleTF;
     String title,date, startTime, endTime, location, idString;
@@ -27,6 +27,7 @@ public class MeetingDetailActivity extends AppCompatActivity {
         id = Integer.parseInt(getIntent().getExtras().getString("ID"));
         titleTF = (EditText) findViewById(R.id.titleTF);
         dateTV = (TextView) findViewById(R.id.dateTV);
+        attendeeTV = (TextView) findViewById(R.id.attendeeTV);
         startTimeTV = (TextView) findViewById(R.id.startTimeTV);
         endTimeTV = (TextView) findViewById(R.id.endTimeTV);
         locationBtn = (Button) findViewById(R.id.locationBtn);
@@ -43,6 +44,7 @@ public class MeetingDetailActivity extends AppCompatActivity {
         endTime = controller.getEndTime(id);
         idString = controller.getAttendeeIdString(id);
 
+
         if (!title.isEmpty()) {
             titleTF.setText(title, TextView.BufferType.EDITABLE);
         }
@@ -51,6 +53,9 @@ public class MeetingDetailActivity extends AppCompatActivity {
         }
         if (!endTime.isEmpty()) {
             endTimeTV.setText(endTime);
+        }
+        if(!idString.isEmpty()){
+            attendeeTV.setText(idString);
         }
         Scanner sc = new Scanner(startTime);
         date = sc.next();
