@@ -26,6 +26,7 @@ public class Controller {
     TempAttendeeList tempAList;
     MeetingList meetingList;
     SQLiteDatabase friendDB;
+
     public Controller(Context context) {
         friendList = FriendList.getInstance();
         this.context = context;
@@ -136,13 +137,20 @@ public class Controller {
     }
 
     public void addMeeting(String title, String location, String startTime, String endTime) {
-        if (meetingList.addMeeting(title, location, startTime, endTime, tempAList) == true) {
+        ArrayList<Friend> tempFriendList = new ArrayList<Friend>();
+        if (tempAList != null && tempAList.size() > 0) {
+            for (int i = 0; i < tempAList.size(); i++) {
+                tempFriendList.add(tempAList.get(i));
+            }
+        }
+        tempAList.clear();
+        if (meetingList.addMeeting(title, location, startTime, endTime, tempFriendList) == true) {
             Toast.makeText(context, "New meeting is created", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(context, " Meetings is already exist", Toast.LENGTH_SHORT).show();
 
         }
-        tempAList.clear();
+
     }
 
     public ArrayList<String> titleOnlyList() {
@@ -156,7 +164,8 @@ public class Controller {
             Log.i(LOG_TAG, "Item removed");
         }
     }
-    public void emptyAttendeeList(){
+
+    public void emptyAttendeeList() {
         tempAList.clear();
     }
 }

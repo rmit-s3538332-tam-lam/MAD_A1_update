@@ -30,16 +30,16 @@ public class MeetingList extends ArrayList<Meeting> {
 
     }
 
-    public boolean addMeeting(String title, String location,String startTime, String endTime,TempAttendeeList attendeeList) {
+    public boolean addMeeting(String title, String location,String startTime, String endTime,ArrayList<Friend> tempFriendList) {
         Boolean boo = false;
         if (meetingsList.size() == 0) {
-            Meeting meeting = new Meeting(title, location,startTime,endTime, attendeeList);
-            Log.i(LOG_TAG,title+ " is added to meeting list");
+            Meeting meeting = new Meeting(title, location,startTime,endTime, tempFriendList);
             meetingsList.add(meeting);
             boo = true;
             return boo;
         }
         if (meetingsList.size() > 0) {
+
             for (int i = 0; i < meetingsList.size(); i++) {
                 if(title.equals(meetingsList.get(i).getTitle()) && location.equals(meetingsList.get(i).getLocation())){
                     Log.i(LOG_TAG,"Meeting is already existed");
@@ -47,13 +47,11 @@ public class MeetingList extends ArrayList<Meeting> {
                     return boo;
                 }
             }
-            Log.i(LOG_TAG, "Added new meeting");
-            Meeting meeting = new Meeting(title,location,startTime,endTime,attendeeList);
+            Meeting meeting = new Meeting(title,location,startTime,endTime,tempFriendList);
             meetingsList.add(meeting);
             Log.i(LOG_TAG,title+ " is added to meeting list");
-            boo = true;
-            attendeeList.clear();
 
+            boo = true;
         }
         return boo;
     }

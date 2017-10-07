@@ -11,15 +11,40 @@ public class Meeting {
     private String title;
     private String startTime;
     private String endTime;
-    private TempAttendeeList attendeeList;
+    private ArrayList<Friend> attendeeFriendList;
     private String location;
+//
+//    public Meeting(String title, String location, String startTime, String endTime,TempAttendeeList attendeeList){
+//        setTitle(title);
+//        setLocation(location);
+//        setStartTime(startTime);
+//        setEndTime(endTime);
+//
+//    }
 
-    public Meeting(String title, String location, String startTime, String endTime,TempAttendeeList attendeeList){
+    public Meeting(String title, String location, String startTime, String endTime,ArrayList<Friend> attendeeFriendList){
         setTitle(title);
         setLocation(location);
         setStartTime(startTime);
         setEndTime(endTime);
+        setAttendeeFriendList(attendeeFriendList);
 
+    }
+    public String AttendeeIdString(){
+        String str = "";
+        for(int i = 0; i<attendeeFriendList.size(); i++){
+            str += Integer.toString(attendeeFriendList.get(i).getId())+" ";
+        }
+        return str;
+    }
+
+
+    public ArrayList<Friend> getAttendeeFriendList() {
+        return attendeeFriendList;
+    }
+
+    public void setAttendeeFriendList(ArrayList<Friend> attendeeFriendList) {
+        this.attendeeFriendList = attendeeFriendList;
     }
 
     public void setId(int id) {
@@ -38,9 +63,6 @@ public class Meeting {
         this.endTime = endTime;
     }
 
-    public void setAttendeeList(TempAttendeeList attendeeList) {
-        this.attendeeList = attendeeList;
-    }
 
     public void setLocation(String location) {
         this.location = location;
@@ -62,9 +84,6 @@ public class Meeting {
         return endTime;
     }
 
-    public TempAttendeeList getAttendeeList() {
-        return attendeeList;
-    }
 
     public String getLocation() {
         return location;

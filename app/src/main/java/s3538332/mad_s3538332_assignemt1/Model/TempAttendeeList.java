@@ -1,5 +1,7 @@
 package s3538332.mad_s3538332_assignemt1.Model;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
@@ -36,4 +38,9 @@ public class TempAttendeeList extends ArrayList<Friend> {
         return attendeeIdString;
     }
 
+    @Override
+    public void clear() {
+        super.clear();
+        Log.i("SQL:","Deleting tempAlist...");
+    }
 }

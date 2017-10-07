@@ -18,10 +18,13 @@ import java.sql.Time;
 import java.util.Calendar;
 
 import s3538332.mad_s3538332_assignemt1.Controller.Controller;
+import s3538332.mad_s3538332_assignemt1.Controller.MeetingDBController;
 import s3538332.mad_s3538332_assignemt1.Controller.popActListener;
 import s3538332.mad_s3538332_assignemt1.R;
 
 public class AddMeetingActivity extends AppCompatActivity {
+    static int START_TIME_ID = 2, END_TIME_ID = 3;
+    MeetingDBController meetingDBController;
     EditText titleTF, locationTF;
     Button addAnttendeeBtn, createBtn, discardBtn;
     Controller controller;
@@ -30,11 +33,33 @@ public class AddMeetingActivity extends AppCompatActivity {
     private Calendar calendar;
     private int year, month, day;
     private int startHour, startMinutes, endHour, endMinutes;
-    static int START_TIME_ID = 2, END_TIME_ID = 3;
-
+    private DatePickerDialog.OnDateSetListener myDateListener = new
+            DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
+                    showDate(arg1, arg2 + 1, arg3);
+                }
+            };
+    private TimePickerDialog.OnTimeSetListener startTimePickerListener = new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+            startHour = hour;
+            endHour = minute;
+            setStartTimeText(hour, minute);
+        }
+    };
+    private TimePickerDialog.OnTimeSetListener endTimePickerListener = new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker timePicker, int i, int i1) {
+            endHour = i;
+            endMinutes = i1;
+            setEndTimeText(endHour, endMinutes);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        meetingDBController = new MeetingDBController(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meeting);
         controller = new Controller(this);
@@ -72,6 +97,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     }
 
     public void createBtnOnClick(View view) {
+
         String title = titleTF.getText().toString();
         String location = locationTF.getText().toString();
 
@@ -100,7 +126,6 @@ public class AddMeetingActivity extends AppCompatActivity {
         String startTime = date + "  " + startHour + ":" + startMinutes;
         String endTime = date + "  " + endHour + ":" + endMinutes;
         controller.addMeeting(title,location,startTime,endTime);
-//        controller.emptyAttendeeList();
         finish();
     }
 
@@ -119,31 +144,6 @@ public class AddMeetingActivity extends AppCompatActivity {
 
         return null;
     }
-
-    private DatePickerDialog.OnDateSetListener myDateListener = new
-            DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-                    showDate(arg1, arg2 + 1, arg3);
-                }
-            };
-
-    private TimePickerDialog.OnTimeSetListener startTimePickerListener = new TimePickerDialog.OnTimeSetListener() {
-        @Override
-        public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-            startHour = hour;
-            endHour = minute;
-            setStartTimeText(hour, minute);
-        }
-    };
-    private TimePickerDialog.OnTimeSetListener endTimePickerListener = new TimePickerDialog.OnTimeSetListener() {
-        @Override
-        public void onTimeSet(TimePicker timePicker, int i, int i1) {
-            endHour = i;
-            endMinutes = i1;
-            setEndTimeText(endHour, endMinutes);
-        }
-    };
 
     private void setEndTimeText(int hour, int minute) {
         endTimeTV.setText(new StringBuilder().append(hour).append(":").append(minute));

@@ -101,8 +101,8 @@ public class FriendDBController {
     public void addEntryToFriendDB(String name, String email, String birthday, String location) {
         String value = "('" + name + "','" + email + "','" + birthday + "','" + location + "')";
         try {
-            friendDB.execSQL("CREATE TABLE IF NOT EXISTS friendTable (name VARCHAR, email VARCHAR, birthday VARCHAR, location VARCHAR)");
             friendDB = context.openOrCreateDatabase("FriendDB", MODE_PRIVATE, null);
+            friendDB.execSQL("CREATE TABLE IF NOT EXISTS friendTable (name VARCHAR, email VARCHAR, birthday VARCHAR, location VARCHAR)");
             friendDB.execSQL("INSERT INTO friendTable (name,email,birthday,location) VALUES " + value);
             Log.i("SQL", "add a friend name " + name + " to friendDB");
         } catch (Exception e) {
