@@ -1,8 +1,6 @@
 package s3538332.mad_s3538332_assignemt1.View;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,7 +16,7 @@ import java.util.ArrayList;
 
 import s3538332.mad_s3538332_assignemt1.Controller.ContactDataManager;
 import s3538332.mad_s3538332_assignemt1.Controller.Controller;
-import s3538332.mad_s3538332_assignemt1.Controller.DatabaseController;
+import s3538332.mad_s3538332_assignemt1.Controller.FriendDBController;
 import s3538332.mad_s3538332_assignemt1.R;
 
 public class FriendListActivity extends AppCompatActivity {
@@ -27,7 +25,7 @@ public class FriendListActivity extends AppCompatActivity {
     Intent contactPickerIntent;
     Controller controller;
     Intent viewDetailIntent;
-    DatabaseController dBController;
+    FriendDBController friendDBController;
     protected static final int PICK_CONTACTS = 100;
     private static final String LOG_TAG = MainActivity.class.getName();
     public String name, email;
@@ -36,7 +34,7 @@ public class FriendListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_list);
-        dBController = new DatabaseController(this);
+        friendDBController = new FriendDBController(this);
         controller = new Controller(this);
         addFriendBtn = (Button) findViewById(R.id.addFriendBtn);
         friendListView = (ListView) findViewById(R.id.friendListView);
@@ -49,17 +47,29 @@ public class FriendListActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        dBController.logFriendTable();
-        dBController.onStart();
+        friendDBController.logFriendTable();
+        friendDBController.onStart();
     }
 
-    public void setListItemListener(){
+    @Override
+    public void onResume() {
+        super.onResume();
+        populateListView();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        friendDBController.onStop();
+    }
+
+    public void setListItemListener() {
         friendListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View viewClicked,
                                     int position, long id) {
-                Log.i(LOG_TAG,"Clicked on "+ position);
-                viewDetailIntent.putExtra("ID",Integer.toString(position));
+                Log.i(LOG_TAG, "Clicked on " + position);
+                viewDetailIntent.putExtra("ID", Integer.toString(position));
                 startActivity(viewDetailIntent);
             }
         });
@@ -73,6 +83,7 @@ public class FriendListActivity extends AppCompatActivity {
         });
 
     }
+
     public void addFriendBtnOnClick(View view) {
         contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
         startActivityForResult(contactPickerIntent, PICK_CONTACTS);
@@ -114,17 +125,5 @@ public class FriendListActivity extends AppCompatActivity {
 
     }
 
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        populateListView();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        dBController.onStop();
-    }
 
 }

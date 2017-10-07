@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.widget.Toast;
 
 import s3538332.mad_s3538332_assignemt1.Model.FriendList;
 
@@ -14,12 +13,12 @@ import static android.content.Context.MODE_PRIVATE;
  * Created by tamlam on 7/10/17.
  */
 
-public class DatabaseController {
+public class FriendDBController {
     SQLiteDatabase friendDB;
     FriendList friendList;
     Context context;
 
-    public DatabaseController(Context context) {
+    public FriendDBController(Context context) {
         friendList = FriendList.getInstance();
         this.context = context;
         try {

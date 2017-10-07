@@ -142,6 +142,7 @@ public class Controller {
             Toast.makeText(context, " Meetings is already exist", Toast.LENGTH_SHORT).show();
 
         }
+        tempAList.clear();
     }
 
     public ArrayList<String> titleOnlyList() {
@@ -154,5 +155,8 @@ public class Controller {
             meetingList.remove(id);
             Log.i(LOG_TAG, "Item removed");
         }
+    }
+    public void emptyAttendeeList(){
+        tempAList.clear();
     }
 }

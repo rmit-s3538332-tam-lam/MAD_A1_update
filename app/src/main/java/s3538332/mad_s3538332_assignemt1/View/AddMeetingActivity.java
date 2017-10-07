@@ -100,6 +100,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         String startTime = date + "  " + startHour + ":" + startMinutes;
         String endTime = date + "  " + endHour + ":" + endMinutes;
         controller.addMeeting(title,location,startTime,endTime);
+//        controller.emptyAttendeeList();
         finish();
     }
 
@@ -158,6 +159,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     }
 
     public void discardBtnOnClick(View view) {
+        controller.emptyAttendeeList();
         finish();
     }
 

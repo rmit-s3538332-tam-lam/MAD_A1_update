@@ -4,8 +4,6 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-import s3538332.mad_s3538332_assignemt1.Controller.DatabaseController;
-
 /**
  * Created by Tam on 4/9/17.
  */
