@@ -41,7 +41,8 @@ public class MeetingListActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        super.onStop();
+        meettingDBController.onStop();
+//        meettingDBController.deleteMeetingDB();
     }
 
 

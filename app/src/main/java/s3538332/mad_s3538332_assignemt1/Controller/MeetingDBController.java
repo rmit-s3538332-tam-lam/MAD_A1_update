@@ -38,7 +38,56 @@ public class MeetingDBController {
         }
     }
 
+    public void onStop(){
+        if(meetingList!= null && meetingList.size()>0){
+            meetingDB.delete("meetingTable",null,null);
+            for(int i = 0; i<meetingList.size();i++){
+                String title = meetingList.get(i).getTitle();
+                String location = meetingList.get(i).getLocation();
+                String startTime = meetingList.get(i).getStartTime();
+                String endTime = meetingList.get(i).getEndTime();
+                String idString = meetingList.get(i).AttendeeIdString();
+                addEntryToMeetingTable(title,location,startTime,endTime,idString);
+                Log.i("MeetingDB","Save sucessfully");
+                logMeetingTable();
+            }
+        } else{
+            Log.i("MeetingDB","No entry in temporary MeetingList to be saved");
+        }
+    }
+    public void addEntryToMeetingTable(String title, String location, String startTime, String endTime, String idString) {
+        try {
+            String value = "('" + title + "','" + location + "','" + startTime + "','" + endTime + "','" + idString + "')";
+            meetingDB = context.openOrCreateDatabase("MeetingDB", MODE_PRIVATE, null);
+            meetingDB.execSQL("CREATE TABLE IF NOT EXISTS meetingTable (title VARCHAR, location VARCHAR, startTime VARCHAR, endTime VARCHAR, idString VARCHAR)");
+            meetingDB.execSQL("INSERT INTO meetingTable (title, location, startTime, endTime,idString) VALUES " + value);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+    }
+    public void logMeetingTable(){
+        Log.i("SQL", "-----------------------------------");
+        try {
+            Cursor c = meetingDB.rawQuery("SELECT * FROM meetingTable", null);
+            int mTitle = c.getColumnIndex("title");
+            int mLocation = c.getColumnIndex("location");
+            int mStartTime = c.getColumnIndex("startTime");
+            int mEndTime = c.getColumnIndex("endTime");
+            int mIdString = c.getColumnIndex("idString");
+            c.moveToFirst();
+            while (c != null) {
+                Log.i("SQL","title: "+ c.getString(mTitle)+"\tLocation: "+ c.getString(mLocation)+
+                "\tStartTime: "+ c.getString(mStartTime)+ "\t idString: "+ c.getString(mIdString));
+                c.moveToNext();
+            }
+        } catch (Exception e) {
+            Log.i("SQL", "-----------------------------------");
+            e.printStackTrace();
+        }
+    }
 
-
+    public void deleteMeetingDB(){
+        meetingDB.delete("meetingTable",null,null);
+    }
 }

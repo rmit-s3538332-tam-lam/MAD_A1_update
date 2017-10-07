@@ -13,14 +13,7 @@ public class Meeting {
     private String endTime;
     private ArrayList<Friend> attendeeFriendList;
     private String location;
-//
-//    public Meeting(String title, String location, String startTime, String endTime,TempAttendeeList attendeeList){
-//        setTitle(title);
-//        setLocation(location);
-//        setStartTime(startTime);
-//        setEndTime(endTime);
-//
-//    }
+
 
     public Meeting(String title, String location, String startTime, String endTime,ArrayList<Friend> attendeeFriendList){
         setTitle(title);
