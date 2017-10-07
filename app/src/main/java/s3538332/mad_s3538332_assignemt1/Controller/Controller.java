@@ -205,6 +205,10 @@ public class Controller {
         }
         return idString;
     }
+    public String attendeeOnlyString(int id){
+        return meetingList.attendeeNameOnlyString(id);
+
+    }
     public void emptyAttendeeList(){
         tempAList.clear();
     }

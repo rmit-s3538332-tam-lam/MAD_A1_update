@@ -15,7 +15,7 @@ public class Meeting {
     private String location;
 
 
-    public Meeting(String title, String location, String startTime, String endTime,ArrayList<Friend> attendeeFriendList){
+    public Meeting(String title, String location, String startTime, String endTime, ArrayList<Friend> attendeeFriendList) {
         setTitle(title);
         setLocation(location);
         setStartTime(startTime);
@@ -23,14 +23,24 @@ public class Meeting {
         setAttendeeFriendList(attendeeFriendList);
 
     }
-    public String AttendeeIdString(){
+
+    public String AttendeeIdString() {
         String str = "";
-        for(int i = 0; i<attendeeFriendList.size(); i++){
-            str += Integer.toString(attendeeFriendList.get(i).getId())+" ";
+        for (int i = 0; i < attendeeFriendList.size(); i++) {
+            str += Integer.toString(attendeeFriendList.get(i).getId()) + " ";
         }
         return str;
     }
 
+    public String attendeNameOnlyString() {
+        String nameString = "";
+        if(attendeeFriendList.size()>0) {
+            for (Friend friend : attendeeFriendList) {
+                nameString += friend.getName() + "   ";
+            }
+        }
+        return nameString;
+    }
 
     public ArrayList<Friend> getAttendeeFriendList() {
         return attendeeFriendList;

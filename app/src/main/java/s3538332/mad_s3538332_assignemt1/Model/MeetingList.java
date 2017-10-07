@@ -55,6 +55,9 @@ public class MeetingList extends ArrayList<Meeting> {
         }
         return boo;
     }
+    public String attendeeNameOnlyString(int id){
+        return meetingsList.get(id).attendeNameOnlyString();
+    }
     public ArrayList<String> nameOnlyList() {
         ArrayList<String> nameOnlyList = new ArrayList<String>();
         for (int i = 0; i < this.size(); i++) {

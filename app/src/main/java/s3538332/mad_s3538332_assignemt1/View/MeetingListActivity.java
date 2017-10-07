@@ -24,6 +24,7 @@ public class MeetingListActivity extends AppCompatActivity {
     Controller controller;
     MeetingDBController meettingDBController;
     Intent viewDetailIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         viewDetailIntent = new Intent(this, MeetingDetailActivity.class);
@@ -33,7 +34,7 @@ public class MeetingListActivity extends AppCompatActivity {
         meettingDBController = new MeetingDBController(this);
         addMeetingBtn = (Button) findViewById(R.id.addMeetingBtn);
         meetingListView = (ListView) findViewById(R.id.meetingListView);
-        addMeetingBtn.setOnClickListener( new popActListener(this,AddMeetingActivity.class));
+        addMeetingBtn.setOnClickListener(new popActListener(this, AddMeetingActivity.class));
         populateListView();
         setListItemListener();
     }
@@ -49,7 +50,7 @@ public class MeetingListActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
+        meettingDBController.onStart();
     }
 
     public void populateListView() {
@@ -66,7 +67,7 @@ public class MeetingListActivity extends AppCompatActivity {
         populateListView();
     }
 
-    public void setListItemListener(){
+    public void setListItemListener() {
         meetingListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -78,7 +79,7 @@ public class MeetingListActivity extends AppCompatActivity {
         meetingListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                viewDetailIntent.putExtra("ID",Integer.toString(i));
+                viewDetailIntent.putExtra("ID", Integer.toString(i));
                 startActivity(viewDetailIntent);
             }
         });

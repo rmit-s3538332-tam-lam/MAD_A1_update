@@ -43,8 +43,7 @@ public class MeetingDetailActivity extends AppCompatActivity {
         startTime = controller.getStartTime(id);
         endTime = controller.getEndTime(id);
         idString = controller.getAttendeeIdString(id);
-
-
+        String attendeeString= controller.attendeeOnlyString(id);
         if (!title.isEmpty()) {
             titleTF.setText(title, TextView.BufferType.EDITABLE);
         }
@@ -54,8 +53,8 @@ public class MeetingDetailActivity extends AppCompatActivity {
         if (!endTime.isEmpty()) {
             endTimeTV.setText(endTime);
         }
-        if(!idString.isEmpty()){
-            attendeeTV.setText(idString);
+        if(!attendeeString.isEmpty()){
+            attendeeTV.setText(attendeeString);
         }
         Scanner sc = new Scanner(startTime);
         date = sc.next();

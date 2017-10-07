@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import s3538332.mad_s3538332_assignemt1.Model.Friend;
 import s3538332.mad_s3538332_assignemt1.Model.FriendList;
+import s3538332.mad_s3538332_assignemt1.Model.Meeting;
 import s3538332.mad_s3538332_assignemt1.Model.MeetingList;
 import s3538332.mad_s3538332_assignemt1.Model.TempAttendeeList;
 
@@ -35,6 +36,37 @@ public class MeetingDBController {
             meetingDB.execSQL("CREATE TABLE IF NOT EXISTS meetingTable (title VARCHAR, location VARCHAR, startTime VARCHAR, endTime VARCHAR, idString VARCHAR)");
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void onStart(){
+        try {
+            Cursor c = meetingDB.rawQuery("SELECT * FROM meetingTable", null);
+            int mTitle = c.getColumnIndex("title");
+            int mLocation = c.getColumnIndex("location");
+            int mStartTime = c.getColumnIndex("startTime");
+            int mEndTime = c.getColumnIndex("endTime");
+            int mIdString = c.getColumnIndex("idString");
+            c.moveToFirst();
+            while (c != null) {
+                String title = c.getString(mTitle);
+                String location = c.getString(mLocation);
+                String startTime = c.getString(mStartTime);
+                String endTime = c.getString(mEndTime);
+                String idString = c.getString(mIdString);
+                ArrayList<Friend> friendArray = new ArrayList<Friend>();
+                Log.i("SQL","Title: " + title + "\t\tidString: "+idString);
+                for(String id: idString.split(" ")){
+                    Friend friend = friendList.get(Integer.parseInt(id));
+                    friendArray.add(friend);
+                }
+                meetingList.addMeeting(title,location,startTime,endTime,friendArray);
+
+                c.moveToNext();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.i("SQL", "Exception");
         }
     }
 
