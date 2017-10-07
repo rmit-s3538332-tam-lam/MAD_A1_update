@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import s3538332.mad_s3538332_assignemt1.Controller.ContactDataManager;
 import s3538332.mad_s3538332_assignemt1.Controller.Controller;
+import s3538332.mad_s3538332_assignemt1.Controller.DatabaseController;
 import s3538332.mad_s3538332_assignemt1.R;
 
 public class FriendListActivity extends AppCompatActivity {
@@ -26,6 +27,7 @@ public class FriendListActivity extends AppCompatActivity {
     Intent contactPickerIntent;
     Controller controller;
     Intent viewDetailIntent;
+    DatabaseController dBController;
     protected static final int PICK_CONTACTS = 100;
     private static final String LOG_TAG = MainActivity.class.getName();
     public String name, email;
@@ -34,6 +36,7 @@ public class FriendListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_list);
+        dBController = new DatabaseController(this);
         controller = new Controller(this);
         addFriendBtn = (Button) findViewById(R.id.addFriendBtn);
         friendListView = (ListView) findViewById(R.id.friendListView);
@@ -46,10 +49,7 @@ public class FriendListActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-        controller.addEntryToFriendDB("adwafdwa","testEm","","");
-        controller.addEntryToFriendDB("test2","test2","","");
-        controller.logFriendTable();
+        dBController.logFriendTable();
 //        controller.deleteFriendTable();
     }
 
@@ -94,6 +94,7 @@ public class FriendListActivity extends AppCompatActivity {
 
                     } else {
                         controller.addFriend(name, email);
+                        dBController.addEntryToFriendDB(name,email,"","");
                     }
                 } catch (ContactDataManager.ContactQueryException e) {
                     Log.e(LOG_TAG, e.getMessage());

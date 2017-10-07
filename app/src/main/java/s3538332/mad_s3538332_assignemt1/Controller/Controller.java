@@ -31,43 +31,9 @@ public class Controller {
         this.context = context;
         tempAList = TempAttendeeList.getInstance();
         meetingList = MeetingList.getInstance();
-        try{
-            friendDB = context.openOrCreateDatabase("FriendDB", MODE_PRIVATE, null);
-            friendDB.execSQL("CREATE TABLE IF NOT EXISTS friendTable (name VARCHAR, email VARCHAR, birthday VARCHAR, location VARCHAR)");
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-    public void deleteFriendTable(){
-        friendDB.delete("friendTable",null,null);
-    }
-    public void logFriendTable() {
-        try {
-            Cursor c = friendDB.rawQuery("SELECT * FROM friendTable", null);
-            int fName = c.getColumnIndex("name");
-            int fEmail = c.getColumnIndex("email");
-            c.moveToFirst();
-            while (c != null) {
-                Log.i("SQL", c.getString(fName));
-                Log.i("SQL", c.getString(fEmail));
-                c.moveToNext();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void addEntryToFriendDB(String name, String email, String birthday, String location) {
-        String value = "('" + name + "','" + email + "','" + birthday + "','" + location + "')";
-        try {
-            friendDB = context.openOrCreateDatabase("FriendDB", MODE_PRIVATE, null);
-            friendDB.execSQL("CREATE TABLE IF NOT EXISTS friendTable (name VARCHAR, email VARCHAR, birthday VARCHAR, location VARCHAR)");
-            friendDB.execSQL("INSERT INTO friendTable (name,email,birthday,location) VALUES " + value);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
     }
+
 
     public void addFriend(String name, String email) {
         if (friendList.addFriend(name, email) == true) {
