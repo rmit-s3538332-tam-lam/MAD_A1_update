@@ -1,6 +1,8 @@
 package s3538332.mad_s3538332_assignemt1.Controller;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -10,6 +12,8 @@ import s3538332.mad_s3538332_assignemt1.Model.Friend;
 import s3538332.mad_s3538332_assignemt1.Model.FriendList;
 import s3538332.mad_s3538332_assignemt1.Model.MeetingList;
 import s3538332.mad_s3538332_assignemt1.Model.TempAttendeeList;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by Tam on 4/9/17.
@@ -27,6 +31,25 @@ public class Controller {
         this.context = context;
         tempAList = TempAttendeeList.getInstance();
         meetingList = MeetingList.getInstance();
+    }
+    public void createOrOpenDatabase(Context context){
+        try {
+            SQLiteDatabase friendDB = context.openOrCreateDatabase("FriendDB",MODE_PRIVATE,null);
+            friendDB.execSQL("CREATE TABLE IF NOT EXISTS friendTable (name VARCHAR, email VARCHAR, birthday VARCHAR, location VARCHAR)");
+            friendDB.execSQL("INSERT INTO friendTable (name,email,birthday,location) VALUES ('friend1','email1','','')");
+            friendDB.execSQL("INSERT INTO friendTable (name,email,birthday,location) VALUES ('friend2','email2','','')");
+            Cursor c = friendDB.rawQuery("SELECT * FROM friendTable",null);
+            int fName = c.getColumnIndex("name");
+            int fEmail = c.getColumnIndex("email");
+            c.moveToFirst();
+            while(c!= null){
+                Log.i("SQL",c.getString(fName));
+                Log.i("SQL",c.getString(fEmail));
+                c.moveToNext();
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void addFriend(String name, String email) {
