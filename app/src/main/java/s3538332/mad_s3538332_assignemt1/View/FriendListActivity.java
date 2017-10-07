@@ -46,24 +46,11 @@ public class FriendListActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-//        try {
-//            SQLiteDatabase friendDB = this.openOrCreateDatabase("FriendDB",MODE_PRIVATE,null);
-//            friendDB.execSQL("CREATE TABLE IF NOT EXISTS friendTable (name VARCHAR, email VARCHAR, birthday VARCHAR, location VARCHAR)");
-//            friendDB.execSQL("INSERT INTO friendTable (name,email,birthday,location) VALUES ('friend1','email1','','')");
-//            friendDB.execSQL("INSERT INTO friendTable (name,email,birthday,location) VALUES ('friend2','email2','','')");
-//            Cursor c = friendDB.rawQuery("SELECT * FROM friendTable",null);
-//            int fName = c.getColumnIndex("name");
-//            int fEmail = c.getColumnIndex("email");
-//            c.moveToFirst();
-//            while(c!= null){
-//                Log.i("SQL",c.getString(fName));
-//                Log.i("SQL",c.getString(fEmail));
-//                c.moveToNext();
-//            }
-//        } catch (Exception e){
-//            e.printStackTrace();
-//        }
-        controller.createOrOpenDatabase(this);
+
+        controller.addEntryToFriendDB("adwafdwa","testEm","","");
+        controller.addEntryToFriendDB("test2","test2","","");
+        controller.logFriendTable();
+//        controller.deleteFriendTable();
     }
 
     public void setListItemListener(){
