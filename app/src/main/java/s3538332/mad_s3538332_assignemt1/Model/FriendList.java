@@ -4,6 +4,8 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
+import s3538332.mad_s3538332_assignemt1.Controller.DatabaseController;
+
 /**
  * Created by Tam on 4/9/17.
  */
@@ -11,9 +13,9 @@ import java.util.ArrayList;
 public class FriendList extends ArrayList<Friend> {
     static String LOG_TAG = "MAD_A1";
     static FriendList friendList = new FriendList();
+    DatabaseController dbController;
 
     private FriendList() {
-
     }
 
     public static FriendList getInstance() {

@@ -35,14 +35,17 @@ public class Controller {
     }
 
 
-    public void addFriend(String name, String email) {
+    public boolean addFriend(String name, String email) {
+        boolean boo = false;
         if (friendList.addFriend(name, email) == true) {
             Log.i(LOG_TAG, "Added friend name: " + name);
+            boo = true;
             Toast.makeText(context, name + " is added to your friend list!", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(context, name + " is already existed in friend list.", Toast.LENGTH_SHORT).show();
 
         }
+        return boo;
     }
 
     public void removeFriend(int position) {

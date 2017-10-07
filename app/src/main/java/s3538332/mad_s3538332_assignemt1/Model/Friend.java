@@ -9,17 +9,33 @@ public class Friend {
     private String email;
     private String birthday;
     private int id;
+    private String location;
 
-    public Friend(String name, String email, String birthday){
+    public Friend(String name, String email, String birthday) {
         setName(name);
         setEmail(email);
         setBirthday(birthday);
     }
 
-    public Friend(String name, String email){
+    public Friend(String name, String email, String birthday, String location) {
+        setName(name);
+        setEmail(email);
+        setBirthday(birthday);
+        setLocation(location);
+    }
+
+    public Friend(String name, String email) {
         setName(name);
         setEmail(email);
         setBirthday("");
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getName() {

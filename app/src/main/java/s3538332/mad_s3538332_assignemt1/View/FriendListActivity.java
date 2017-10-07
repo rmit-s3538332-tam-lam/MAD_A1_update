@@ -94,7 +94,6 @@ public class FriendListActivity extends AppCompatActivity {
 
                     } else {
                         controller.addFriend(name, email);
-                        dBController.addEntryToFriendDB(name,email,"","");
                     }
                 } catch (ContactDataManager.ContactQueryException e) {
                     Log.e(LOG_TAG, e.getMessage());
@@ -120,5 +119,11 @@ public class FriendListActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         populateListView();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        dBController.onStop();
     }
 }
