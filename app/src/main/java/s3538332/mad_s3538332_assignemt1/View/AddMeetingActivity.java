@@ -81,6 +81,13 @@ public class AddMeetingActivity extends AppCompatActivity {
 
         addAnttendeeBtn.setOnClickListener(new popActListener(this, ViewAnttendeeActivity.class));
 
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Calendar cal = controller.meetingCalendar(day,month,year,startHour,startMinutes);
+        Intent alarmIntent = new Intent(this, AlarmReciever.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,0,alarmIntent,0);
+
+        alarmManager.set(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),pendingIntent);
+
 
 
 
@@ -134,6 +141,9 @@ public class AddMeetingActivity extends AppCompatActivity {
         String startTime = date + "  " + startHour + ":" + startMinutes;
         String endTime = date + "  " + endHour + ":" + endMinutes;
         controller.addMeeting(title, location, startTime, endTime);
+
+
+
 
 
         finish();

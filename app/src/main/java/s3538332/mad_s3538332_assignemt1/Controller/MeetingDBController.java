@@ -3,6 +3,7 @@ package s3538332.mad_s3538332_assignemt1.Controller;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -40,54 +41,70 @@ public class MeetingDBController {
     }
 
     public void onStart(){
-        try {
-            Cursor c = meetingDB.rawQuery("SELECT * FROM meetingTable", null);
-            int mTitle = c.getColumnIndex("title");
-            int mLocation = c.getColumnIndex("location");
-            int mStartTime = c.getColumnIndex("startTime");
-            int mEndTime = c.getColumnIndex("endTime");
-            int mIdString = c.getColumnIndex("idString");
-            c.moveToFirst();
-            while (c != null) {
-                String title = c.getString(mTitle);
-                String location = c.getString(mLocation);
-                String startTime = c.getString(mStartTime);
-                String endTime = c.getString(mEndTime);
-                String idString = c.getString(mIdString);
-                ArrayList<Friend> friendArray = new ArrayList<Friend>();
-                Log.i("SQL","Title: " + title + "\t\tidString: "+idString);
-                for(String id: idString.split(" ")){
-                    Friend friend = friendList.get(Integer.parseInt(id));
-                    friendArray.add(friend);
-                }
-                meetingList.addMeeting(title,location,startTime,endTime,friendArray);
-
-                c.moveToNext();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.i("SQL", "Exception");
-        }
+        new OnStartTask().execute();
     }
 
     public void onStop(){
-        if(meetingList!= null && meetingList.size()>0){
-            meetingDB.delete("meetingTable",null,null);
-            for(int i = 0; i<meetingList.size();i++){
-                String title = meetingList.get(i).getTitle();
-                String location = meetingList.get(i).getLocation();
-                String startTime = meetingList.get(i).getStartTime();
-                String endTime = meetingList.get(i).getEndTime();
-                String idString = meetingList.get(i).AttendeeIdString();
-                addEntryToMeetingTable(title,location,startTime,endTime,idString);
-                Log.i("MeetingDB","Save sucessfully");
-                logMeetingTable();
+        new OnStopTask().execute();
+    }
+
+    private class OnStartTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                Cursor c = meetingDB.rawQuery("SELECT * FROM meetingTable", null);
+                int mTitle = c.getColumnIndex("title");
+                int mLocation = c.getColumnIndex("location");
+                int mStartTime = c.getColumnIndex("startTime");
+                int mEndTime = c.getColumnIndex("endTime");
+                int mIdString = c.getColumnIndex("idString");
+                c.moveToFirst();
+                while (c != null) {
+                    String title = c.getString(mTitle);
+                    String location = c.getString(mLocation);
+                    String startTime = c.getString(mStartTime);
+                    String endTime = c.getString(mEndTime);
+                    String idString = c.getString(mIdString);
+                    ArrayList<Friend> friendArray = new ArrayList<Friend>();
+                    Log.i("SQL","Title: " + title + "\t\tidString: "+idString);
+                    for(String id: idString.split(" ")){
+                        Friend friend = friendList.get(Integer.parseInt(id));
+                        friendArray.add(friend);
+                    }
+                    meetingList.addMeeting(title,location,startTime,endTime,friendArray);
+
+                    c.moveToNext();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.i("SQL", "Exception");
             }
-        } else{
-            Log.i("MeetingDB","No entry in temporary MeetingList to be saved");
+            return null;
         }
     }
-    public void addEntryToMeetingTable(String title, String location, String startTime, String endTime, String idString) {
+    private class OnStopTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            if(meetingList!= null && meetingList.size()>0){
+                meetingDB.delete("meetingTable",null,null);
+                for(int i = 0; i<meetingList.size();i++){
+                    String title = meetingList.get(i).getTitle();
+                    String location = meetingList.get(i).getLocation();
+                    String startTime = meetingList.get(i).getStartTime();
+                    String endTime = meetingList.get(i).getEndTime();
+                    String idString = meetingList.get(i).AttendeeIdString();
+                    addEntryToMeetingTable(title,location,startTime,endTime,idString);
+                    Log.i("MeetingDB","Save sucessfully");
+                    logMeetingTable();
+                }
+            } else{
+                Log.i("MeetingDB","No entry in temporary MeetingList to be saved");
+            }
+            return null;
+        }
+    }
+
+        public void addEntryToMeetingTable(String title, String location, String startTime, String endTime, String idString) {
         try {
             String value = "('" + title + "','" + location + "','" + startTime + "','" + endTime + "','" + idString + "')";
             meetingDB = context.openOrCreateDatabase("MeetingDB", MODE_PRIVATE, null);

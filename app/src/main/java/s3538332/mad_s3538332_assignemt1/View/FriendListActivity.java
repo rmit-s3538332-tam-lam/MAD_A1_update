@@ -47,7 +47,6 @@ public class FriendListActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        friendDBController.logFriendTable();
         friendDBController.onStart();
     }
 

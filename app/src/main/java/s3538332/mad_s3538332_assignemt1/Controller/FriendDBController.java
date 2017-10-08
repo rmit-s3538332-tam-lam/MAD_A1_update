@@ -3,6 +3,7 @@ package s3538332.mad_s3538332_assignemt1.Controller;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import s3538332.mad_s3538332_assignemt1.Model.FriendList;
@@ -30,51 +31,68 @@ public class FriendDBController {
     }
 
     public void onStart() {
-        //onStart import friends from database to temporary friendList object.
-        Log.i("SQL", "onStart: Update temp FriendList");
-
-        try {
-            Cursor c = friendDB.rawQuery("SELECT * FROM friendTable", null);
-            int fName = c.getColumnIndex("name");
-            int fEmail = c.getColumnIndex("email");
-            int fBirthday = c.getColumnIndex("birthday");
-            int fLocation = c.getColumnIndex("location");
-            c.moveToFirst();
-            while (c != null) {
-                Log.i("SQL", "name: " + c.getString(fName) + "     email: " + c.getString(fEmail));
-                String newName = c.getString(fName);
-                String newEmail = c.getString(fEmail);
-                String newBirthday = c.getString(fBirthday);
-                String newLocation = c.getString(fLocation);
-                friendList.addFriend(newName, newEmail, newBirthday, newLocation);
-                c.moveToNext();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.i("SQL", "Exception");
-        }
-
+        new OnStartTask().execute();
     }
 
     public void onStop() {
-        //onStop delete current database, save new friendlist to database.
-        Log.i("SQL", "onStop: Saving friendList to database....");
-
-        if (friendList != null && friendList.size() > 0) {
-            deleteFriendTable();
-            for (int i = 0; i < friendList.size(); i++) {
-                String name = friendList.get(i).getName();
-                String email = friendList.get(i).getEmail();
-                String birthday = friendList.get(i).getBirthday();
-                String location = friendList.get(i).getLocation();
-                addEntryToFriendDB(name, email, birthday, location);
-            }
-            Log.i("SQL", "Saved successfully.");
-        } else {
-            Log.i("SQL", "No entry in temporary friendlist to save");
-        }
+        new OnStopTask().execute();
 
     }
+
+    private class OnStartTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            //onStart import friends from database to temporary friendList object.
+            Log.i("SQL", "onStart: Update temp FriendList");
+
+            try {
+                Cursor c = friendDB.rawQuery("SELECT * FROM friendTable", null);
+                int fName = c.getColumnIndex("name");
+                int fEmail = c.getColumnIndex("email");
+                int fBirthday = c.getColumnIndex("birthday");
+                int fLocation = c.getColumnIndex("location");
+                c.moveToFirst();
+                while (c != null) {
+                    Log.i("SQL", "name: " + c.getString(fName) + "     email: " + c.getString(fEmail));
+                    String newName = c.getString(fName);
+                    String newEmail = c.getString(fEmail);
+                    String newBirthday = c.getString(fBirthday);
+                    String newLocation = c.getString(fLocation);
+                    friendList.addFriend(newName, newEmail, newBirthday, newLocation);
+                    c.moveToNext();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.i("SQL", "Exception");
+            }
+            return null;
+        }
+    }
+
+    private class OnStopTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            //onStop delete current database, save new friendlist to database.
+            Log.i("SQL", "onStop: Saving friendList to database....");
+
+            if (friendList != null && friendList.size() > 0) {
+                deleteFriendTable();
+                for (int i = 0; i < friendList.size(); i++) {
+                    String name = friendList.get(i).getName();
+                    String email = friendList.get(i).getEmail();
+                    String birthday = friendList.get(i).getBirthday();
+                    String location = friendList.get(i).getLocation();
+                    addEntryToFriendDB(name, email, birthday, location);
+                }
+                Log.i("SQL", "Saved successfully.");
+            } else {
+                Log.i("SQL", "No entry in temporary friendlist to save");
+            }
+            return null;
+        }
+    }
+
+
 
     public void deleteFriendTable() {
         friendDB.delete("friendTable", null, null);
