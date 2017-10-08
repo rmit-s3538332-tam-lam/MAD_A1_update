@@ -12,13 +12,14 @@
     <string name="addMeetingBtn">Add meeting</string>
     <string name="discardBtn">Discard</string>
     <string name="titleLbl">Title:</string>
-    <string name="locationLbl">Location: </string>
     <string name="dateLbl">Date:</string>
     <string name="startTimeLbl">Start time:</string>
     <string name="endTimeLbl">End time:</string>
     <string name="viewLocationBtn">View Location</string>
     <string name="yourLocationBtn">Your Location</string>
     <string name="attendeeTV">Attendee: </string>
+
+    <string name="locationLbl">Location: </string>
 
     <string name="date">Select date here</string>
     <string name="startTime">Select start time here</string>
@@ -27,6 +28,7 @@
     <string name="addAttendeeBtn">Add attendee</string>
     <string name="completeBtn">Complete</string>
     <string name="title_activity_your_location">Map</string>
+    <string name="title_activity_friend_location">Map</string>
 
 
 </resources>

@@ -19,16 +19,17 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 import s3538332.mad_s3538332_assignemt1.Controller.Controller;
+
 import s3538332.mad_s3538332_assignemt1.R;
 
 public class FriendDetailActivity extends AppCompatActivity {
-    private EditText nameTF, emailTF;
-    private Button saveBtn, deleteBtn;
+    private EditText nameTF, emailTF, locationTF;
+    private Button saveBtn, deleteBtn, viewEditLocationBtn;
     private TextView birthdayText;
     private Intent intent;
     private Controller controller;
     static String LOG_TAG = "MAD_A1";
-    String name, email, birthday;
+    String name, email, birthday, location;
     int id;
     private DatePicker datePicker;
     private Calendar calendar;
@@ -47,13 +48,16 @@ public class FriendDetailActivity extends AppCompatActivity {
 
 
         controller = new Controller(this);
+        locationTF = (EditText) findViewById(R.id.locationTF);
         nameTF = (EditText) findViewById(R.id.nameTF);
         emailTF = (EditText) findViewById(R.id.emailTF);
         saveBtn = (Button) findViewById(R.id.saveBtn);
         deleteBtn = (Button) findViewById(R.id.deleteBtn);
         birthdayText = (TextView) findViewById(R.id.birthdayText);
+
         intent = getIntent();
         populateDetail();
+
 
     }
 
@@ -66,6 +70,10 @@ public class FriendDetailActivity extends AppCompatActivity {
         name = controller.getNameById(id);
         email = controller.getEmailById(id);
         birthday = controller.getBirthDayById(id);
+        location = controller.getFriendLocationById(id);
+        if(!location.isEmpty() && location!= ""){
+            locationTF.setText(location, TextView.BufferType.EDITABLE);
+        }
         if (!name.isEmpty()) {
             nameTF.setText(name, TextView.BufferType.EDITABLE);
         }
@@ -77,6 +85,7 @@ public class FriendDetailActivity extends AppCompatActivity {
         }
     }
 
+
     public void deleteBtnOnClick(View view) {
         controller.removeFriend(id);
         finish();
@@ -86,8 +95,8 @@ public class FriendDetailActivity extends AppCompatActivity {
         name = nameTF.getText().toString();
         email = emailTF.getText().toString();
         birthday = birthdayText.getText().toString();
-
-        controller.saveFriend(id, name, email, birthday);
+        location = locationTF.getText().toString();
+        controller.saveFriend(id, name, email, birthday,location);
         finish();
     }
 

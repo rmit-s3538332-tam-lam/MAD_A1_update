@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         friendDBController.onStart();
+        meetingDBController.onStart();
     }
 
     @Override

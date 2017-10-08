@@ -3,8 +3,8 @@
     package="s3538332.mad_s3538332_assignemt1">
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -44,10 +44,10 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-        
+
         <activity
             android:name=".View.YourLocationActivity"
-            android:label="@string/title_activity_your_location"></activity>
+            android:label="@string/title_activity_your_location" />
     </application>
 
 </manifest>

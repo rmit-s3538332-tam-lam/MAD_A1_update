@@ -85,6 +85,13 @@ public class Controller {
         }
         return birthday;
     }
+    public String getFriendLocationById(int id){
+        String location ="";
+        if(friendList.get(id).getLocation()!=null){
+            return friendList.get(id).getLocation();
+        }
+        return location;
+    }
 
     public void saveMeeting(int id, String title, String startTime, String endTime) {
         Meeting meeting = meetingList.get(id);
@@ -94,13 +101,14 @@ public class Controller {
 
     }
 
-    public void saveFriend(int id, String name, String email, String birthday) {
+
+    public void saveFriend(int id, String name, String email, String birthday,String location) {
         Friend friend = friendList.get(id);
         friend.setName(name);
         friend.setEmail(email);
         friend.setBirthday(birthday);
+        friend.setLocation(location);
     }
-
 
     public void addToTempList(int id) {
         if (friendList.size() > id) {

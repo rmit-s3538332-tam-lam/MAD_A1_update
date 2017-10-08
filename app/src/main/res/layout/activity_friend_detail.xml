@@ -49,6 +49,20 @@
             android:inputType="textPersonName" />
 
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/locationLbl"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/locationTF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <TextView
             android:id="@+id/birthdayLbl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -83,4 +97,5 @@
             android:text="@string/deleteBtn" />
 
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
