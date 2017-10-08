@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.security.cert.Certificate;
 import java.util.Calendar;
 
 import s3538332.mad_s3538332_assignemt1.Controller.AlarmReciever;
@@ -153,8 +154,12 @@ public class AddMeetingActivity extends AppCompatActivity {
     protected Dialog onCreateDialog(int id) {
         switch (id) {
             case 1:
+                Calendar c = Calendar.getInstance();
+                int cyear = c.get(Calendar.YEAR);
+                int cmonth = c.get(Calendar.MONTH);
+                int cday = c.get(Calendar.DATE);
                 return new DatePickerDialog(this,
-                        myDateListener, year, month, day);
+                        myDateListener, cyear, cmonth, cday);
             case 2:
                 return new TimePickerDialog(this, startTimePickerListener, startHour, startMinutes, false);
             case 3:

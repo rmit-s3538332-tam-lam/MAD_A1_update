@@ -2,6 +2,7 @@ package s3538332.mad_s3538332_assignemt1.View;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -12,6 +13,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.SharedPreferencesCompat;
 import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -21,6 +23,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import s3538332.mad_s3538332_assignemt1.Controller.SharedPreferencesController;
 import s3538332.mad_s3538332_assignemt1.R;
 
 public class YourLocationActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -28,6 +31,7 @@ public class YourLocationActivity extends FragmentActivity implements OnMapReady
     private GoogleMap mMap;
     LocationManager locationManager;
     LocationListener locationListener;
+    SharedPreferencesController spController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,7 @@ public class YourLocationActivity extends FragmentActivity implements OnMapReady
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        spController = new SharedPreferencesController(this);
 
 
     }
@@ -51,15 +56,19 @@ public class YourLocationActivity extends FragmentActivity implements OnMapReady
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         // Add a marker in Sydney and move the camera
+
+
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                Log.i("Loccation", location.toString());
+                Log.i("LocationInfo", location.toString());
+                saveLocation(location);
                 mMap.clear();
                 LatLng userLocation = new LatLng(location.getLatitude(),location.getLongitude());
                 mMap.addMarker(new MarkerOptions().position(userLocation)).setTitle("You are here");
@@ -96,8 +105,8 @@ public class YourLocationActivity extends FragmentActivity implements OnMapReady
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,locationListener);
 
                 Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                saveLocation(lastKnownLocation);
                 mMap.clear();
-
                 LatLng userLocation = new LatLng(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude());
                 mMap.addMarker(new MarkerOptions().position(userLocation)).setTitle("You are here");
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
@@ -117,4 +126,9 @@ public class YourLocationActivity extends FragmentActivity implements OnMapReady
             }
         }
     }
+    public void saveLocation(Location location){
+        spController.saveLocation(this,location);
+    }
+
+
 }
