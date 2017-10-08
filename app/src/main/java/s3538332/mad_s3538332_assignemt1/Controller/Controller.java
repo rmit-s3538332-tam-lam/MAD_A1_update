@@ -93,6 +93,7 @@ public class Controller {
         meeting.setEndTime(endTime);
 
     }
+
     public void saveFriend(int id, String name, String email, String birthday) {
         Friend friend = friendList.get(id);
         friend.setName(name);
@@ -206,14 +207,48 @@ public class Controller {
         }
         return idString;
     }
-    public String attendeeOnlyString(int id){
+
+    public String attendeeOnlyString(int id) {
         return meetingList.attendeeNameOnlyString(id);
 
     }
-    public void emptyAttendeeList(){
+
+    public void emptyAttendeeList() {
         tempAList.clear();
     }
+
+    //Create calendar for alarm
+    public Calendar meetingCalendar(String startTime) {
+        String[] splitStr = startTime.split(" ");
+        String dateStr = splitStr[0];
+        String timeStr = splitStr[1];
+
+        //Time split
+        String[] timeSplit = timeStr.split(":");
+        Integer hour = Integer.parseInt(timeSplit[0]);
+        Integer minute = Integer.parseInt(timeSplit[1]);
+
+        //Date split
+        String[] dateSplit = dateStr.split("/");
+        Integer date = Integer.parseInt(dateSplit[0]);
+        Integer month = Integer.parseInt(dateSplit[1]);
+        Integer year = Integer.parseInt(dateSplit[2]);
+        return meetingCalendar(date, month, year, hour, minute);
+    }
+
+    public Calendar meetingCalendar(int day, int month, int year, int startHour, int startMinute) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, year);
+        cal.set(Calendar.MONTH, month - 1);
+        cal.set(Calendar.DAY_OF_MONTH, day);
+        cal.set(Calendar.HOUR_OF_DAY, startHour);
+        cal.set(Calendar.MINUTE, startMinute);
+        cal.set(Calendar.SECOND, 0);
+
+        return cal;
+    }
 }
+
 
 
 

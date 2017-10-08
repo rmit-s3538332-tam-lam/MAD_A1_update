@@ -1,8 +1,11 @@
 package s3538332.mad_s3538332_assignemt1.View;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,9 +17,9 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.sql.Time;
 import java.util.Calendar;
 
+import s3538332.mad_s3538332_assignemt1.Controller.AlarmReciever;
 import s3538332.mad_s3538332_assignemt1.Controller.Controller;
 import s3538332.mad_s3538332_assignemt1.Controller.MeetingDBController;
 import s3538332.mad_s3538332_assignemt1.Controller.popActListener;
@@ -37,6 +40,9 @@ public class AddMeetingActivity extends AppCompatActivity {
             DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
+                    year = arg1;
+                    month = arg2 + 1;
+                    day = arg3;
                     showDate(arg1, arg2 + 1, arg3);
                 }
             };
@@ -76,12 +82,14 @@ public class AddMeetingActivity extends AppCompatActivity {
         addAnttendeeBtn.setOnClickListener(new popActListener(this, ViewAnttendeeActivity.class));
 
 
-        calendar = Calendar.getInstance();
-        year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH);
-        day = calendar.get(Calendar.DAY_OF_MONTH);
 
 
+    }
+    private void handleNotification() {
+        Intent alarmIntent = new Intent(this, AlarmReciever.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 5000, pendingIntent);
     }
 
     public void dateTVOnClick(View view) {
@@ -126,6 +134,8 @@ public class AddMeetingActivity extends AppCompatActivity {
         String startTime = date + "  " + startHour + ":" + startMinutes;
         String endTime = date + "  " + endHour + ":" + endMinutes;
         controller.addMeeting(title, location, startTime, endTime);
+
+
         finish();
     }
 
@@ -163,29 +173,5 @@ public class AddMeetingActivity extends AppCompatActivity {
         finish();
     }
 
-    //Create calendar for alarm
-    public Calendar meetingCalendar(String startTime) {
-        String[] splitStr = startTime.split(" ");
-        String dateStr = splitStr[0];
-        String timeStr = splitStr[1];
 
-        //Time split
-        String[] timeSplit = timeStr.split(":");
-        Integer hour = Integer.parseInt(timeSplit[0]);
-        Integer minute = Integer.parseInt(timeSplit[1]);
-
-        //Date split
-        String[] dateSplit = dateStr.split("/");
-        Integer date = Integer.parseInt(dateSplit[0]);
-        Integer month = Integer.parseInt(dateSplit[1]);
-        Integer year = Integer.parseInt(dateSplit[2]);
-
-        //Outcome Calendar
-        Calendar cal = Calendar.getInstance();
-        cal.set(year, month - 1, date);
-        cal.set(Calendar.HOUR_OF_DAY, hour);
-        cal.set(Calendar.MINUTE, minute);
-
-        return cal;
-    }
 }

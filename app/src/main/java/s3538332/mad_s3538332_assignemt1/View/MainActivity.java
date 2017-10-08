@@ -1,10 +1,5 @@
 package s3538332.mad_s3538332_assignemt1.View;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
@@ -12,7 +7,6 @@ import android.widget.Button;
 import s3538332.mad_s3538332_assignemt1.Controller.FriendDBController;
 import s3538332.mad_s3538332_assignemt1.Controller.MeetingDBController;
 import s3538332.mad_s3538332_assignemt1.Controller.popActListener;
-import s3538332.mad_s3538332_assignemt1.Model.AlarmNotificationReceiver;
 import s3538332.mad_s3538332_assignemt1.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         meetingsBtn.setOnClickListener(meetingsBtnListener);
         yourLocationBtn.setOnClickListener(yourLocationBtnListener);
 
-        startAlarm();
+//        startAlarm();
 
 
     }
@@ -47,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         friendDBController.onStart();
-//        meetingDBController.deleteMeetingTable();
-//        friendDBController.deleteFriendTable();
     }
 
     @Override
@@ -57,11 +49,4 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void startAlarm(){
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, AlarmNotificationReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,0,intent,0);
-//        alarmManager.set(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime()+3000,pendingIntent);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,SystemClock.elapsedRealtime()+3000,3000,pendingIntent);
-    }
 }
