@@ -64,6 +64,9 @@ public class YourLocationActivity extends FragmentActivity implements OnMapReady
                 LatLng userLocation = new LatLng(location.getLatitude(),location.getLongitude());
                 mMap.addMarker(new MarkerOptions().position(userLocation)).setTitle("You are here");
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
+                mMap.animateCamera(CameraUpdateFactory.zoomIn());
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
+
 
             }
 
@@ -98,6 +101,7 @@ public class YourLocationActivity extends FragmentActivity implements OnMapReady
                 LatLng userLocation = new LatLng(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude());
                 mMap.addMarker(new MarkerOptions().position(userLocation)).setTitle("You are here");
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
 
             }
         }

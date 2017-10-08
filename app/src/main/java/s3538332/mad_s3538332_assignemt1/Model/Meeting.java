@@ -1,6 +1,10 @@
 package s3538332.mad_s3538332_assignemt1.Model;
 
+import android.util.Log;
+
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Tam on 4/9/17.
@@ -34,13 +38,15 @@ public class Meeting {
 
     public String attendeNameOnlyString() {
         String nameString = "";
-        if(attendeeFriendList.size()>0) {
+        if (attendeeFriendList.size() > 0) {
             for (Friend friend : attendeeFriendList) {
                 nameString += friend.getName() + "   ";
             }
         }
         return nameString;
     }
+
+
 
     public ArrayList<Friend> getAttendeeFriendList() {
         return attendeeFriendList;

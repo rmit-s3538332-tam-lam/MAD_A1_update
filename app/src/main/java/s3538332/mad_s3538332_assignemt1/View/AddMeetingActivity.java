@@ -44,8 +44,8 @@ public class AddMeetingActivity extends AppCompatActivity {
         @Override
         public void onTimeSet(TimePicker timePicker, int hour, int minute) {
             startHour = hour;
-            endHour = minute;
-            setStartTimeText(hour, minute);
+            startMinutes = minute;
+            setStartTimeText(startHour, startMinutes);
         }
     };
     private TimePickerDialog.OnTimeSetListener endTimePickerListener = new TimePickerDialog.OnTimeSetListener() {
@@ -125,7 +125,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         String date = day + "/" + month + "/" + year;
         String startTime = date + "  " + startHour + ":" + startMinutes;
         String endTime = date + "  " + endHour + ":" + endMinutes;
-        controller.addMeeting(title,location,startTime,endTime);
+        controller.addMeeting(title, location, startTime, endTime);
         finish();
     }
 
@@ -163,4 +163,29 @@ public class AddMeetingActivity extends AppCompatActivity {
         finish();
     }
 
+    //Create calendar for alarm
+    public Calendar meetingCalendar(String startTime) {
+        String[] splitStr = startTime.split(" ");
+        String dateStr = splitStr[0];
+        String timeStr = splitStr[1];
+
+        //Time split
+        String[] timeSplit = timeStr.split(":");
+        Integer hour = Integer.parseInt(timeSplit[0]);
+        Integer minute = Integer.parseInt(timeSplit[1]);
+
+        //Date split
+        String[] dateSplit = dateStr.split("/");
+        Integer date = Integer.parseInt(dateSplit[0]);
+        Integer month = Integer.parseInt(dateSplit[1]);
+        Integer year = Integer.parseInt(dateSplit[2]);
+
+        //Outcome Calendar
+        Calendar cal = Calendar.getInstance();
+        cal.set(year, month - 1, date);
+        cal.set(Calendar.HOUR_OF_DAY, hour);
+        cal.set(Calendar.MINUTE, minute);
+
+        return cal;
+    }
 }
